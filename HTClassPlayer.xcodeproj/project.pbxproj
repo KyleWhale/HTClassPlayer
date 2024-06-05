@@ -15,6 +15,14 @@
 		013388A82C0EB6300006D76A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 013388A72C0EB6300006D76A /* Base */; };
 		013388B22C0EB6E70006D76A /* HTClassPlayerLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013388B12C0EB6E70006D76A /* HTClassPlayerLayerView.swift */; };
 		013388B42C0EB6F70006D76A /* HTClassPlayerHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013388B32C0EB6F70006D76A /* HTClassPlayerHeaders.swift */; };
+		01338BF92C0FFACA0006D76A /* HTClassPlayerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338BF82C0FFACA0006D76A /* HTClassPlayerControl.swift */; };
+		01338BFB2C0FFF6C0006D76A /* HTClassPlayerControlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338BFA2C0FFF6C0006D76A /* HTClassPlayerControlModel.swift */; };
+		01338BFD2C1003930006D76A /* HTClassPlayerTopControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338BFC2C1003930006D76A /* HTClassPlayerTopControl.swift */; };
+		01338BFF2C1003C20006D76A /* HTClassPlayerCenterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338BFE2C1003C20006D76A /* HTClassPlayerCenterControl.swift */; };
+		01338C012C1003D60006D76A /* HTClassPlayerBottomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338C002C1003D60006D76A /* HTClassPlayerBottomControl.swift */; };
+		01338C032C10183A0006D76A /* HTClassControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338C022C10183A0006D76A /* HTClassControlView.swift */; };
+		01338D5C2C104F020006D76A /* HTClassPlayerProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D5B2C104F020006D76A /* HTClassPlayerProgressView.swift */; };
+		01338D5E2C1050960006D76A /* HTClassTimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D5D2C1050960006D76A /* HTClassTimeSlider.swift */; };
 		C9052B75CCEBDCE674B6534A /* Pods_HTClassPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A0833601EF1018A63B21EB /* Pods_HTClassPlayer.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +37,14 @@
 		013388A92C0EB6300006D76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		013388B12C0EB6E70006D76A /* HTClassPlayerLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerLayerView.swift; sourceTree = "<group>"; };
 		013388B32C0EB6F70006D76A /* HTClassPlayerHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerHeaders.swift; sourceTree = "<group>"; };
+		01338BF82C0FFACA0006D76A /* HTClassPlayerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerControl.swift; sourceTree = "<group>"; };
+		01338BFA2C0FFF6C0006D76A /* HTClassPlayerControlModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerControlModel.swift; sourceTree = "<group>"; };
+		01338BFC2C1003930006D76A /* HTClassPlayerTopControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerTopControl.swift; sourceTree = "<group>"; };
+		01338BFE2C1003C20006D76A /* HTClassPlayerCenterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerCenterControl.swift; sourceTree = "<group>"; };
+		01338C002C1003D60006D76A /* HTClassPlayerBottomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerBottomControl.swift; sourceTree = "<group>"; };
+		01338C022C10183A0006D76A /* HTClassControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassControlView.swift; sourceTree = "<group>"; };
+		01338D5B2C104F020006D76A /* HTClassPlayerProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerProgressView.swift; sourceTree = "<group>"; };
+		01338D5D2C1050960006D76A /* HTClassTimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassTimeSlider.swift; sourceTree = "<group>"; };
 		389FDAF9CC6E5BD7D9FC02BF /* Pods-HTClassPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HTClassPlayer.release.xcconfig"; path = "Target Support Files/Pods-HTClassPlayer/Pods-HTClassPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		6817C4DC45F670015F5138B1 /* Pods-HTClassPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HTClassPlayer.debug.xcconfig"; path = "Target Support Files/Pods-HTClassPlayer/Pods-HTClassPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		90A0833601EF1018A63B21EB /* Pods_HTClassPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HTClassPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,18 +98,34 @@
 		013388AF2C0EB6D30006D76A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				013388B32C0EB6F70006D76A /* HTClassPlayerHeaders.swift */,
-				013388B02C0EB6D60006D76A /* Player */,
+				01338BF72C0FFAA50006D76A /* Control */,
+				013388B02C0EB6D60006D76A /* Core */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
 		};
-		013388B02C0EB6D60006D76A /* Player */ = {
+		013388B02C0EB6D60006D76A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				013388B32C0EB6F70006D76A /* HTClassPlayerHeaders.swift */,
 				013388B12C0EB6E70006D76A /* HTClassPlayerLayerView.swift */,
 			);
-			path = Player;
+			path = Core;
+			sourceTree = "<group>";
+		};
+		01338BF72C0FFAA50006D76A /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				01338BF82C0FFACA0006D76A /* HTClassPlayerControl.swift */,
+				01338BFC2C1003930006D76A /* HTClassPlayerTopControl.swift */,
+				01338BFE2C1003C20006D76A /* HTClassPlayerCenterControl.swift */,
+				01338C002C1003D60006D76A /* HTClassPlayerBottomControl.swift */,
+				01338BFA2C0FFF6C0006D76A /* HTClassPlayerControlModel.swift */,
+				01338C022C10183A0006D76A /* HTClassControlView.swift */,
+				01338D5B2C104F020006D76A /* HTClassPlayerProgressView.swift */,
+				01338D5D2C1050960006D76A /* HTClassTimeSlider.swift */,
+			);
+			path = Control;
 			sourceTree = "<group>";
 		};
 		1F782831B49BE088EE738AA7 /* Frameworks */ = {
@@ -229,9 +261,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				013388A02C0EB62F0006D76A /* ViewController.swift in Sources */,
+				01338D5C2C104F020006D76A /* HTClassPlayerProgressView.swift in Sources */,
+				01338BF92C0FFACA0006D76A /* HTClassPlayerControl.swift in Sources */,
 				013388B22C0EB6E70006D76A /* HTClassPlayerLayerView.swift in Sources */,
+				01338BFD2C1003930006D76A /* HTClassPlayerTopControl.swift in Sources */,
+				01338BFB2C0FFF6C0006D76A /* HTClassPlayerControlModel.swift in Sources */,
+				01338BFF2C1003C20006D76A /* HTClassPlayerCenterControl.swift in Sources */,
 				013388B42C0EB6F70006D76A /* HTClassPlayerHeaders.swift in Sources */,
 				0133889C2C0EB62F0006D76A /* AppDelegate.swift in Sources */,
+				01338C012C1003D60006D76A /* HTClassPlayerBottomControl.swift in Sources */,
+				01338D5E2C1050960006D76A /* HTClassTimeSlider.swift in Sources */,
+				01338C032C10183A0006D76A /* HTClassControlView.swift in Sources */,
 				0133889E2C0EB62F0006D76A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

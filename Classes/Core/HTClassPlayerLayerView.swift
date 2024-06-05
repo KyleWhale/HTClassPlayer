@@ -9,15 +9,24 @@ import Foundation
 
 @objc protocol HTClassPlayerLayerViewDelegate: NSObjectProtocol {
     
+    @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_isPlaying: Bool)
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState)
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval)
-    @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalDuration: TimeInterval)
+    @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
 }
 
 open class HTClassPlayerLayerView: UIView {
     
     var var_seekTime: TimeInterval = 0
     weak var var_delegate: HTClassPlayerLayerViewDelegate?
+    
+    var var_isPlaying: Bool = false {
+        didSet {
+            if oldValue != var_isPlaying {
+                var_delegate?.ht_player?(var_player: self, var_isPlaying: var_isPlaying)
+            }
+        }
+    }
     
     private var var_player: AVPlayer?
     private var var_playerLayer: AVPlayerLayer?
@@ -32,7 +41,6 @@ open class HTClassPlayerLayerView: UIView {
     }
     private var var_currentURL: URL?
     private var var_isObserving: Bool = false
-    private var var_isPlaying: Bool = false
     private var var_isBuffering: Bool = false
     private var var_readyToPlay: Bool = false
     private var var_playEnd: Bool = false
@@ -48,15 +56,15 @@ open class HTClassPlayerLayerView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        ht_setupPlayer()
+        ht_setupViews()
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        ht_setupPlayer()
+        ht_setupViews()
     }
     
-    private func ht_setupPlayer() {
+    private func ht_setupViews() {
         var_player = AVPlayer()
         var_playerLayer = AVPlayerLayer(player: var_player)
         var_playerLayer?.videoGravity = .resizeAspect
@@ -80,7 +88,7 @@ open class HTClassPlayerLayerView: UIView {
         var_isBuffering = false
         var_seekTime = 0
         var_timer?.invalidate()
-        ht_pauseVideo()
+        ht_pause()
         ht_removeObserverIfNeeded()
         var_currentURL = nil
         var_playerItem = nil
@@ -91,7 +99,7 @@ open class HTClassPlayerLayerView: UIView {
     func ht_playVideo(_ var_url: URL) {
         
         if var_currentURL == var_url {
-            var_player?.play()
+            ht_play()
             return
         }
         ht_resetPlayer()
@@ -103,15 +111,22 @@ open class HTClassPlayerLayerView: UIView {
         ht_setupTimer()
     }
     
+    // 播放
+    func ht_play() {
+        var_player?.play()
+        var_isPlaying = true
+        var_timer?.fireDate = Date()
+    }
+    
     // 暂停
-    func ht_pauseVideo() {
+    func ht_pause() {
         var_player?.pause()
         var_isPlaying = false
         var_timer?.fireDate = Date.distantFuture
     }
 
     // 停止
-    func ht_stopVideo() {
+    func ht_stop() {
         var_player?.pause()
         ht_resetPlayer()
     }
@@ -214,6 +229,58 @@ open class HTClassPlayerLayerView: UIView {
         }
     }
     
+    // 观察者回调
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let keyPath = keyPath else {return}
+        
+        if let var_item = object as? AVPlayerItem, var_item == var_playerItem {
+            if keyPath == ht_AsciiString("status") {
+                if var_item.status == .readyToPlay {
+                    if var_seekTime != 0 {
+                        ht_seekToTime(var_seekTime) { [weak self] in
+                            guard let self = self else {return}
+                            self.var_seekTime = 0
+                            self.var_readyToPlay = true
+                            self.var_state = .htEnumPlayerStateReadyToPlay
+                        }
+                    } else {
+                        self.var_readyToPlay = true
+                        self.var_state = .htEnumPlayerStateReadyToPlay
+                    }
+                } else if var_item.status == .failed || var_player?.status == AVPlayer.Status.failed {
+                    self.var_state = .htEnumPlayerStateError
+                }
+            } else if keyPath == ht_AsciiString("loadedTimeRanges") {
+                if let var_timeInterVarl = self.ht_availableDuration() {
+                    let var_totalTime = CMTimeGetSeconds(var_item.duration)
+                    var_delegate?.ht_player?(var_player: self, var_loadedTimeDidChange: var_timeInterVarl, var_totalTime: var_totalTime)
+                }
+            } else if keyPath == ht_AsciiString("playbackBufferEmpty") {
+                if var_item.isPlaybackBufferEmpty {
+                    self.var_state = .htEnumPlayerStateBuffering
+                    self.ht_bufferingSomeSecond()
+                }
+            } else if keyPath == ht_AsciiString("playbackLikelyToKeepUp") {
+                if var_item.isPlaybackBufferEmpty {
+                    if var_state != .htEnumPlayerStateBufferFinished && var_readyToPlay {
+                        self.var_state = .htEnumPlayerStateBufferFinished
+                    }
+                }
+            }
+        } else if keyPath == ht_AsciiString("rate") {
+            print("倍速变化")
+        }
+    }
+    
+    deinit {
+        ht_playerRemoveObserver(ht_AsciiString("rate"))
+        ht_removeObserverIfNeeded()
+    }
+}
+
+extension HTClassPlayerLayerView {
+    
     private func ht_playerAddObserver(_ var_string: String) {
         guard let var_player = var_player else {return}
         var_player.addObserver(self, forKeyPath: var_string, options: .new, context: nil)
@@ -271,54 +338,5 @@ open class HTClassPlayerLayerView: UIView {
                 }
             }
         }
-    }
-
-    // 观察者回调
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        guard let keyPath = keyPath else {return}
-        
-        if let var_item = object as? AVPlayerItem, var_item == var_playerItem {
-            if keyPath == ht_AsciiString("status") {
-                if var_item.status == .readyToPlay {
-                    if var_seekTime != 0 {
-                        ht_seekToTime(var_seekTime) { [weak self] in
-                            guard let self = self else {return}
-                            self.var_seekTime = 0
-                            self.var_readyToPlay = true
-                            self.var_state = .htEnumPlayerStateReadyToPlay
-                        }
-                    } else {
-                        self.var_readyToPlay = true
-                        self.var_state = .htEnumPlayerStateReadyToPlay
-                    }
-                } else if var_item.status == .failed || var_player?.status == AVPlayer.Status.failed {
-                    self.var_state = .htEnumPlayerStateError
-                }
-            } else if keyPath == ht_AsciiString("loadedTimeRanges") {
-                if let var_timeInterVarl = self.ht_availableDuration() {
-                    let var_totalDuration = CMTimeGetSeconds(var_item.duration)
-                    var_delegate?.ht_player?(var_player: self, var_loadedTimeDidChange: var_timeInterVarl, var_totalDuration: var_totalDuration)
-                }
-            } else if keyPath == ht_AsciiString("playbackBufferEmpty") {
-                if var_item.isPlaybackBufferEmpty {
-                    self.var_state = .htEnumPlayerStateBuffering
-                    self.ht_bufferingSomeSecond()
-                }
-            } else if keyPath == ht_AsciiString("playbackLikelyToKeepUp") {
-                if var_item.isPlaybackBufferEmpty {
-                    if var_state != .htEnumPlayerStateBufferFinished && var_readyToPlay {
-                        self.var_state = .htEnumPlayerStateBufferFinished
-                    }
-                }
-            }
-        } else if keyPath == ht_AsciiString("rate") {
-            print("倍速变化")
-        }
-    }
-    
-    deinit {
-        ht_playerRemoveObserver(ht_AsciiString("rate"))
-        ht_removeObserverIfNeeded()
     }
 }
