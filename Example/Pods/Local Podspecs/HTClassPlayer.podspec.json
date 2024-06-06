@@ -18,6 +18,7 @@
     "git": "https://github.com/KyleWhale/HTClassPlayer.git",
     "tag": "0.0.1"
   },
+  "swift_versions": "5.0",
   "source_files": [
     "Classes",
     "Classes/**/*.{swift}"
@@ -29,5 +30,6 @@
     "Kingfisher": [
 
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

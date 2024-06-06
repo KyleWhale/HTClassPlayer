@@ -24,6 +24,8 @@ enum HTEnumPanDirection: Int {
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval)
     // 缓冲进度
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
+    // 滑动结束 var_type 0 = slider 1 = 滑动手势
+    @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_sliderChangeEnd var_currentTime: TimeInterval, var_type: Int)
 }
 
 public class HTClassPlayerControl: UIView {
@@ -130,6 +132,7 @@ public class HTClassPlayerControl: UIView {
                     if var_isPlaying {
                         ht_play()
                     }
+                    var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 0)
                 }
                 // 重置自动隐藏
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ht_auto), object: nil)
@@ -475,6 +478,7 @@ public class HTClassPlayerControl: UIView {
                     if var_isPlaying {
                         ht_play()
                     }
+                    var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 1)
                 }
                 break
             case .htEnumVertical:

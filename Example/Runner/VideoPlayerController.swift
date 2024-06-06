@@ -216,3 +216,9 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
         }
     }
 }
+
+// 测试扩展
+extension HTEnumControlType {
+    
+    static let htEnumControlTypeSubtitle = HTEnumControlType(10)
+}

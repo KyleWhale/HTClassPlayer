@@ -7,25 +7,34 @@
 
 import Foundation
 
-public enum HTEnumControlType {
-    case htEnumControlTypeSpacer //空间隔
-    case htEnumControlTypeBack //返回按钮
-    case htEnumControlTypeTitle //标题
-    case htEnumControlTypeCast //投屏
-    case htEnumControlTypeShare //分享
-    case htEnumControlTypeCC //字幕
-    case htEnumControlTypeCollection //收藏
-    case htEnumControlTypeRemoveAd //去广告
-    case htEnumControlTypeLock // 锁
-    case htEnumControlTypeBackward // 后退 10s
-    case htEnumControlTypeForward // 前进 10s
-    case htEnumControlTypeFullScreenPlayPause // 横屏播放暂停
-    case htEnumControlTypePlayPause //播放暂停
-    case htEnumControlTypeNextEpisode //下一集
-    case htEnumControlTypeProgresss //进度 包括当前时间、slider、总时长
-    case htEnumControlTypeEpisodes //集
-    case htEnumControlTypeFullscreen //全屏
+// 使用struct 方便扩展
+public struct HTEnumControlType: Equatable {
+    
+    public let var_rawValue: Int
+    
+    public init(_ var_rawValue: Int) {
+        self.var_rawValue = var_rawValue
+    }
+    
+    public static let htEnumControlTypeSpacer = HTEnumControlType(1) //空间隔
+    public static let htEnumControlTypeBack = HTEnumControlType(2) //返回按钮
+    public static let htEnumControlTypeTitle = HTEnumControlType(3) //标题
+    public static let htEnumControlTypeCast = HTEnumControlType(4) //投屏
+    public static let htEnumControlTypeShare = HTEnumControlType(5) //分享
+    public static let htEnumControlTypeCC = HTEnumControlType(6) //字幕
+    public static let htEnumControlTypeCollection = HTEnumControlType(7) //收藏
+    public static let htEnumControlTypeRemoveAd = HTEnumControlType(8) //去广告
+    public static let htEnumControlTypeLock = HTEnumControlType(9) // 锁
+    public static let htEnumControlTypeBackward = HTEnumControlType(10) // 后退 10s
+    public static let htEnumControlTypeForward = HTEnumControlType(11) // 前进 10s
+    public static let htEnumControlTypeFullScreenPlayPause = HTEnumControlType(12) // 横屏播放暂停
+    public static let htEnumControlTypePlayPause = HTEnumControlType(13) //播放暂停
+    public static let htEnumControlTypeNextEpisode = HTEnumControlType(14) //下一集
+    public static let htEnumControlTypeProgresss = HTEnumControlType(15) //进度 包括当前时间、slider、总时长
+    public static let htEnumControlTypeEpisodes = HTEnumControlType(16) //集
+    public static let htEnumControlTypeFullscreen = HTEnumControlType(17) //全屏
 }
+
 // 这里注意使用方法赋值
 @objc public class HTClassPlayerControlModel: NSObject {
     

@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
     :path: "../../HTClassPlayer"
 
 SPEC CHECKSUMS:
-  HTClassPlayer: 52ad815c5d7d03e198afdd2d74c95a481ac6994c
+  HTClassPlayer: 34f83f8d05516ae7a7818456ac69e574044d12d6
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
