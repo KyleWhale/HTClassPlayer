@@ -11,7 +11,7 @@
 @_exported import SnapKit
 @_exported import Kingfisher
 
-@objc enum HTEnumPlayerState: Int {
+@objc public enum HTEnumPlayerState: Int {
 
     case htEnumPlayerStateNoURL
     case htEnumPlayerStateReadyToPlay

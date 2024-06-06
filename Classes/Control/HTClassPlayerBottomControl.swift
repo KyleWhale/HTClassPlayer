@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HTClassPlayerBottomControl: UIView {
+public class HTClassPlayerBottomControl: UIView {
     
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
     var var_sliderChange: ((UISlider, UIControl.Event) -> Void)?

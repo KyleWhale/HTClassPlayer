@@ -1,0 +1,6 @@
+framework module HTClassPlayer {
+  umbrella header "HTClassPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}

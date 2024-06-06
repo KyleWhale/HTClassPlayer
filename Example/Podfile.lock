@@ -1,0 +1,27 @@
+PODS:
+  - HTClassPlayer (0.0.1):
+    - Kingfisher
+    - SnapKit
+  - Kingfisher (7.11.0)
+  - SnapKit (5.7.1)
+
+DEPENDENCIES:
+  - HTClassPlayer (from `../../HTClassPlayer`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Kingfisher
+    - SnapKit
+
+EXTERNAL SOURCES:
+  HTClassPlayer:
+    :path: "../../HTClassPlayer"
+
+SPEC CHECKSUMS:
+  HTClassPlayer: 52ad815c5d7d03e198afdd2d74c95a481ac6994c
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+
+PODFILE CHECKSUM: 44f7010699f8a75f4133a98741de5cdf29a57bdc
+
+COCOAPODS: 1.15.2

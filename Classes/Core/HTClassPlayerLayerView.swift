@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc protocol HTClassPlayerLayerViewDelegate: NSObjectProtocol {
+@objc public protocol HTClassPlayerLayerViewDelegate: NSObjectProtocol {
     
     // 是否正在播放
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_isPlaying: Bool)
@@ -19,15 +19,15 @@ import Foundation
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
 }
 
-open class HTClassPlayerLayerView: UIView {
+public class HTClassPlayerLayerView: UIView {
     
-    var var_seekTime: TimeInterval = 0
+    public var var_seekTime: TimeInterval = 0
     // 是否正在seek
-    var var_isSeeking: Bool = false
+    public var var_isSeeking: Bool = false
     // 回调
-    weak var var_delegate: HTClassPlayerLayerViewDelegate?
+    public weak var var_delegate: HTClassPlayerLayerViewDelegate?
     // 正在播放
-    var var_isPlaying: Bool = false {
+    public var var_isPlaying: Bool = false {
         didSet {
             if oldValue != var_isPlaying {
                 var_delegate?.ht_player?(var_player: self, var_isPlaying: var_isPlaying)
@@ -35,7 +35,7 @@ open class HTClassPlayerLayerView: UIView {
         }
     }
     // 当前播放时长
-    var var_currentTime: TimeInterval {
+    public var var_currentTime: TimeInterval {
         get {
             if let var_item = var_playerItem {
                 return CMTimeGetSeconds(var_item.currentTime())
@@ -44,7 +44,7 @@ open class HTClassPlayerLayerView: UIView {
         }
     }
     // 播放总时长
-    var var_totalTime: TimeInterval {
+    public var var_totalTime: TimeInterval {
         get {
             if let var_item = var_playerItem {
                 if var_item.duration.timescale == 0 {

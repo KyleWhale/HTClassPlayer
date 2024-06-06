@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HTClassPlayerLeftControl: UIView {
+public class HTClassPlayerLeftControl: UIView {
     
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
 

@@ -13,7 +13,7 @@ enum HTEnumPanDirection: Int {
     case htEnumVertical   = 1
 }
 
-@objc protocol HTClassPlayerControlDelegate: NSObjectProtocol {
+@objc public protocol HTClassPlayerControlDelegate: NSObjectProtocol {
     // 按钮点击
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_didClickWith var_model: HTClassPlayerControlModel)
     // 是否正在播放
@@ -26,36 +26,46 @@ enum HTEnumPanDirection: Int {
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
 }
 
-open class HTClassPlayerControl: UIView {
+public class HTClassPlayerControl: UIView {
     
     // 循环播放
-    var var_isAutoLoop: Bool = false
+    public var var_isAutoLoop: Bool = false
     // 代理
-    weak var var_delegate: HTClassPlayerControlDelegate?
+    public weak var var_delegate: HTClassPlayerControlDelegate?
     // 计算属性来判断是否全屏
-    var var_isFullScreen: Bool {
+    public var var_isFullScreen: Bool {
         get {
             return UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height
         }
     }
     // 播放状态
-    var var_isPlaying: Bool {
+    public var var_isPlaying: Bool {
         get {
             return var_player.var_isPlaying
         }
     }
+    public var var_currentTime: TimeInterval {
+        get {
+            return var_player.var_currentTime
+        }
+    }
+    public var var_isSeeking: Bool {
+        get {
+            return var_player.var_isSeeking
+        }
+    }
     // 是否显示控制层
-    var var_showControl: Bool = false
+    public var var_showControl: Bool = false
     // 标记滑动中 滑块或横滑
     private var var_sliding: Bool = false
     // 播放器
-    lazy var var_player: HTClassPlayerLayerView = {
+    public lazy var var_player: HTClassPlayerLayerView = {
         let var_view = HTClassPlayerLayerView()
         var_view.var_delegate = self
         return var_view
     }()
     // 顶部控制层
-    lazy var var_topControl: HTClassPlayerTopControl = {
+    public lazy var var_topControl: HTClassPlayerTopControl = {
         let var_view = HTClassPlayerTopControl()
         var_view.alpha = 0
         var_view.var_click = { [weak self] var_model in
@@ -67,7 +77,7 @@ open class HTClassPlayerControl: UIView {
         return var_view
     }()
     // 中间控制层
-    lazy var var_centerControl: HTClassPlayerCenterControl = {
+    public lazy var var_centerControl: HTClassPlayerCenterControl = {
         let var_view = HTClassPlayerCenterControl()
         var_view.alpha = 0
         var_view.var_click = { [weak self] var_model in
@@ -79,7 +89,7 @@ open class HTClassPlayerControl: UIView {
         return var_view
     }()
     // 左侧控制层 ad lock
-    lazy var var_leftControl: HTClassPlayerLeftControl = {
+    public lazy var var_leftControl: HTClassPlayerLeftControl = {
         let var_view = HTClassPlayerLeftControl()
         var_view.alpha = 0
         var_view.var_click = { [weak self] var_model in
@@ -91,7 +101,7 @@ open class HTClassPlayerControl: UIView {
         return var_view
     }()
     // 底部控制层
-    lazy var var_bottomControl: HTClassPlayerBottomControl = {
+    public lazy var var_bottomControl: HTClassPlayerBottomControl = {
         let var_view = HTClassPlayerBottomControl()
         var_view.alpha = 0
         var_view.var_click = { [weak self] var_model in
@@ -241,40 +251,40 @@ open class HTClassPlayerControl: UIView {
         }
     }
     // deinit中调用 需要释放
-    func ht_prepareToDeinit() {
+    public func ht_prepareToDeinit() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ht_auto), object: nil)
         ht_resetPlayer()
     }
     // 重置播放状态
-    func ht_resetPlayer() {
+    public func ht_resetPlayer() {
         var_player.ht_resetPlayer()
     }
     // 开始播放｜替换URL
-    func ht_playVideo(_ var_url: URL) {
+    public func ht_playVideo(_ var_url: URL) {
         var_player.ht_playVideo(var_url)
     }
     // 播放
-    func ht_play() {
+    public func ht_play() {
         var_player.ht_play()
     }
     // 暂停
-    func ht_pause() {
+    public func ht_pause() {
         var_player.ht_pause()
     }
     // 停止
-    func ht_stop() {
+    public func ht_stop() {
         var_player.ht_stop()
     }
     // 显示菊花
-    func ht_showLoading() {
+    public func ht_showLoading() {
         var_loading.startAnimating()
     }
     // 隐藏菊花
-    func ht_hiddenLoading() {
+    public func ht_hiddenLoading() {
         var_loading.stopAnimating()
     }
     // 横竖屏调用
-    func ht_fullScreen() {
+    public func ht_fullScreen() {
         
         if var_isFullScreen {
             if #available(iOS 16.0, *) {
@@ -293,7 +303,7 @@ open class HTClassPlayerControl: UIView {
         }
     }
     // seekto
-    func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
+    public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
         var_player.ht_seekToTime(var_time, var_completion: var_completion)
     }
     // 按钮事件
@@ -503,7 +513,7 @@ open class HTClassPlayerControl: UIView {
 
 extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     
-    func ht_player(var_player: HTClassPlayerLayerView, var_isPlaying: Bool) {
+    public func ht_player(var_player: HTClassPlayerLayerView, var_isPlaying: Bool) {
         
         if let var_view = ht_subviewWith(.htEnumControlTypePlayPause) as? HTClassControlView {
             var_view.var_model?.ht_setSelected(var_isPlaying)
@@ -514,7 +524,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
         var_delegate?.ht_playerControl?(var_playerControl: self, var_isPlaying: var_isPlaying)
     }
     
-    func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
+    public func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
         print("playTimeDidChange -----> \(var_currentTime) -- \(var_totalTime)")
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_view.var_currentTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_currentTime))
@@ -524,7 +534,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
         var_delegate?.ht_playerControl?(var_playerControl: self, var_playTimeDidChange: var_currentTime, var_totalTime: var_totalTime)
     }
     
-    func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval) {
+    public func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval) {
         // 缓冲进度
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_view.var_totalTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_totalTime))
@@ -532,7 +542,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
         var_delegate?.ht_playerControl?(var_playerControl: self, var_loadedTimeDidChange: var_loadedDuration, var_totalTime: var_totalTime)
     }
     
-    func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState) {
+    public func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState) {
         print("state -----> \(var_state)")
         if var_state == .htEnumPlayerStatePlayToTheEnd {
             if var_isAutoLoop {
