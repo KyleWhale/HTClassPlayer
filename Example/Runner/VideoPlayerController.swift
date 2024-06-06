@@ -149,6 +149,14 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
         }
     }
     
+    func ht_playerControl(var_playerControl: HTClassPlayerControl, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
+        print("playTimeDidChange -----> \(var_currentTime) -- \(var_totalTime)")
+    }
+    
+    func ht_playerControl(var_playerControl: HTClassPlayerControl, var_isPlaying: Bool) {
+        print("isPlaying -----> \(var_isPlaying)")
+    }
+    
     func ht_playerControl(var_playerControl: HTClassPlayerControl, var_didClickWith var_model: HTClassPlayerControlModel) {
         
         print("-----> \(var_model.var_type)")
@@ -194,7 +202,7 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
         }
         if var_model.var_type == .htEnumControlTypeNextEpisode {
             // 下一集
-            if let var_videoURL = URL(string: "https://vdept3.bdstatic.com/mda-qeq9auqxz6wti1p0/sc/cae_h264/1716619225911504285/mda-qeq9auqxz6wti1p0.mp4?v_from_s=hkapp-haokan-hbf&auth_key=1717665057-0-0-89b961f977eeecda62837dc12591bdd1&bcevod_channel=searchbox_feed&cr=2&cd=0&pd=1&pt=3&logid=0657406429&vid=11363500767941286701&klogid=0657406429&abtest=101830_2-17451_2") {
+            if let var_videoURL = URL(string: "https://highlight-video.cdn.bcebos.com/video/6s/160b95c0-1faa-11ef-8027-6c92bf5b40f4.mp4") {
                 player.ht_playVideo(var_videoURL)
             }
         }

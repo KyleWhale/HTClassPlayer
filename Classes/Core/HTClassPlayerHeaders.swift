@@ -11,16 +11,6 @@
 @_exported import SnapKit
 @_exported import Kingfisher
 
-@objc public enum HTEnumPlayerState: Int {
-
-    case htEnumPlayerStateNoURL
-    case htEnumPlayerStateReadyToPlay
-    case htEnumPlayerStateBuffering
-    case htEnumPlayerStateBufferFinished
-    case htEnumPlayerStatePlayToTheEnd
-    case htEnumPlayerStateError
-}
-
 /*测试 临时使用 上线前删除*/
 func ht_AsciiString(_ string: String) -> String {
     return string

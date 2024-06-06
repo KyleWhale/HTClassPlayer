@@ -7,6 +7,16 @@
 
 import Foundation
 
+@objc public enum HTEnumPlayerState: Int {
+
+    case htEnumPlayerStateNoURL
+    case htEnumPlayerStateReadyToPlay
+    case htEnumPlayerStateBuffering
+    case htEnumPlayerStateBufferFinished
+    case htEnumPlayerStatePlayToTheEnd
+    case htEnumPlayerStateError
+}
+
 @objc public protocol HTClassPlayerLayerViewDelegate: NSObjectProtocol {
     
     // 是否正在播放
@@ -187,8 +197,6 @@ public class HTClassPlayerLayerView: UIView {
                 if finished {
                     self?.var_isSeeking = false
                     var_completion?()
-                } else {
-                    print("-----> seek 未完成")
                 }
             })
         } else {
@@ -242,7 +250,7 @@ public class HTClassPlayerLayerView: UIView {
         
         if let var_player = var_player {
             if let var_playerItem = var_playerItem, var_includeLoading {
-                if var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull {
+                if var_readyToPlay && (var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull) {
                     self.var_state = .htEnumPlayerStateBufferFinished
                     if var_isPlaying {
                         var_player.play()

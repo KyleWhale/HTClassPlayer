@@ -261,6 +261,7 @@ public class HTClassPlayerControl: UIView {
     }
     // 开始播放｜替换URL
     public func ht_playVideo(_ var_url: URL) {
+        ht_showLoading()
         var_player.ht_playVideo(var_url)
     }
     // 播放
@@ -474,7 +475,6 @@ public class HTClassPlayerControl: UIView {
         self.var_sumTime = self.var_sumTime + TimeInterval(var_value) / 100.0 * (TimeInterval(var_totalDuration)/400)
         if (self.var_sumTime >= var_totalDuration) { self.var_sumTime = var_totalDuration }
         if (self.var_sumTime <= 0) { self.var_sumTime = 0 }
-        print("-----> \(self.var_sumTime)")
         if let var_progressView = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_progressView.var_slider.value = Float(self.var_sumTime / var_totalDuration)
             var_progressView.var_currentTimeLabel.text = var_progressView.ht_convertSecondsToHMS(Int(self.var_sumTime))
@@ -525,7 +525,6 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     }
     
     public func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
-        print("playTimeDidChange -----> \(var_currentTime) -- \(var_totalTime)")
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_view.var_currentTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_currentTime))
             var_view.var_totalTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_totalTime))
@@ -543,7 +542,6 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     }
     
     public func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState) {
-        print("state -----> \(var_state)")
         if var_state == .htEnumPlayerStatePlayToTheEnd {
             if var_isAutoLoop {
                 var_player.ht_seekToTime(0) { [weak self] in
@@ -555,6 +553,9 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
             ht_showLoading()
         }
         if var_state == .htEnumPlayerStateBufferFinished {
+            ht_hiddenLoading()
+        }
+        if var_state == .htEnumPlayerStateError {
             ht_hiddenLoading()
         }
         var_delegate?.ht_playerControl?(var_playerControl: self, var_playerStateDidChange: var_state)
