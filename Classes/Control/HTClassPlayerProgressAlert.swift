@@ -28,7 +28,7 @@ open class HTClassPlayerProgressAlert: UIView {
         ht_setupViews()
     }
     
-    func ht_setupViews() {
+    open func ht_setupViews() {
         
         backgroundColor = UIColor.black.withAlphaComponent(0.4)
         layer.masksToBounds = true
@@ -39,12 +39,12 @@ open class HTClassPlayerProgressAlert: UIView {
         }
     }
     
-    public func ht_show(var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
+    open func ht_show(var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
         isHidden = false
         var_progressLabel.text = "\(ht_convertSecondsToHMS(Int(var_currentTime)))/\(ht_convertSecondsToHMS(Int(var_totalTime)))"
     }
     
-    public func ht_dismiss() {
+    open func ht_dismiss() {
         isHidden = true
     }
 }
