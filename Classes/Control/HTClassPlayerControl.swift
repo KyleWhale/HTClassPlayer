@@ -111,10 +111,15 @@ open class HTClassPlayerControl: UIView {
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ht_auto), object: nil)
                 break
             case .touchUpInside:
-                var_sliding = false
+                var_sliding = true
+                var_player.ht_pauseTimer()
                 let var_target = var_player.var_totalTime * Double(var_slider.value)
                 ht_seekToTime(var_target) { [weak self] in
-                    self?.var_player.ht_startimer()
+                    guard let self = self else {return}
+                    var_sliding = false
+                    if var_isPlaying {
+                        ht_play()
+                    }
                 }
                 // 重置自动隐藏
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ht_auto), object: nil)
@@ -432,9 +437,12 @@ open class HTClassPlayerControl: UIView {
             }
             switch self.var_panDirection {
             case .htEnumHorizontal:
-                var_sliding = false
                 ht_seekToTime(self.var_sumTime) { [weak self] in
-                    self?.var_player.ht_startimer()
+                    guard let self = self else {return}
+                    var_sliding = false
+                    if var_isPlaying {
+                        ht_play()
+                    }
                 }
                 break
             case .htEnumVertical:

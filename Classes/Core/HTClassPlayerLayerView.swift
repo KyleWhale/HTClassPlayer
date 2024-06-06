@@ -22,8 +22,11 @@ import Foundation
 open class HTClassPlayerLayerView: UIView {
     
     var var_seekTime: TimeInterval = 0
+    // 是否正在seek
+    var var_isSeeking: Bool = false
+    // 回调
     weak var var_delegate: HTClassPlayerLayerViewDelegate?
-    
+    // 正在播放
     var var_isPlaying: Bool = false {
         didSet {
             if oldValue != var_isPlaying {
@@ -31,7 +34,7 @@ open class HTClassPlayerLayerView: UIView {
             }
         }
     }
-    
+    // 当前播放时长
     var var_currentTime: TimeInterval {
         get {
             if let var_item = var_playerItem {
@@ -40,7 +43,7 @@ open class HTClassPlayerLayerView: UIView {
             return 0
         }
     }
-    
+    // 播放总时长
     var var_totalTime: TimeInterval {
         get {
             if let var_item = var_playerItem {
@@ -130,13 +133,7 @@ open class HTClassPlayerLayerView: UIView {
             var_timer?.fireDate = Date.distantFuture
         }
     }
-    
-    func ht_startimer() {
-        if var_isPlaying {
-            var_timer?.fireDate = Date()
-        }
-    }
-    
+        
     // 开始播放｜替换URL
     func ht_playVideo(_ var_url: URL) {
         
@@ -184,9 +181,15 @@ open class HTClassPlayerLayerView: UIView {
             return
         }
         if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+            var_isSeeking = true
             let draggedTime = CMTime(value: Int64(var_time), timescale: 1)
-            self.var_player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (finished) in
-                var_completion?()
+            self.var_player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { [weak self] (finished) in
+                if finished {
+                    self?.var_isSeeking = false
+                    var_completion?()
+                } else {
+                    print("-----> seek 未完成")
+                }
             })
         } else {
             self.var_seekTime = var_time
@@ -241,6 +244,9 @@ open class HTClassPlayerLayerView: UIView {
             if let var_playerItem = var_playerItem, var_includeLoading {
                 if var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull {
                     self.var_state = .htEnumPlayerStateBufferFinished
+                    if var_isPlaying {
+                        var_player.play()
+                    }
                 } else if var_playerItem.status == .failed {
                     self.var_state = .htEnumPlayerStateError
                 } else {
@@ -311,6 +317,9 @@ open class HTClassPlayerLayerView: UIView {
                 if var_item.isPlaybackBufferEmpty {
                     if var_state != .htEnumPlayerStateBufferFinished && var_readyToPlay {
                         self.var_state = .htEnumPlayerStateBufferFinished
+                        if var_isPlaying {
+                            var_player?.play()
+                        }
                     }
                 }
             }
@@ -374,7 +383,9 @@ extension HTClassPlayerLayerView {
         }
         var_isBuffering = true
         // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
-        var_player?.pause()
+        if var_isPlaying {
+            var_player?.pause()
+        }
         let var_popTime = DispatchTime.now() + Double(Int64( Double(NSEC_PER_SEC) * 1.0 )) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: var_popTime) {[weak self] in
             guard let self = self else { return }
@@ -386,6 +397,9 @@ extension HTClassPlayerLayerView {
                 } else {
                     // 如果此时用户已经暂停了，则不再需要开启播放了
                     self.var_state = .htEnumPlayerStateBufferFinished
+                    if var_isPlaying {
+                        var_player?.play()
+                    }
                 }
             }
         }

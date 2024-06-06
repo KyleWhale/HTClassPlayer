@@ -10,7 +10,7 @@ import Foundation
 class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     
     let url = """
-    https://vdept3.bdstatic.com/mda-mfuf163rfmkn36i7/sc/cae_h264_nowatermark/1624963807340099361/mda-mfuf163rfmkn36i7.mp4?v_from_s=hkapp-haokan-hbf&auth_key=1717665054-0-0-023ad0a91871c0677c97b86aebdf3236&bcevod_channel=searchbox_feed&pd=1&cr=2&cd=0&pt=3&logid=0654227800&vid=10554454971571011271&klogid=0654227800&abtest=101830_2-17451_2
+    https://autoeq.top/tlvsn/3148e0d49c2b71cd0f932ca47dbdf979/3148e0d49c2b71cd0f932ca47dbdf979.m3u8?expire=1717661030&auth=20119aa62270f36055349a63762b533b52222e049980bc2e3341c7ab4336c505&xaid=43C637DE-5FAB-4A17-9BE6-E90D306B1D68&p1=132432,347,103.152.113.155
     """
     
     let player = HTClassPlayerControl()
@@ -141,8 +141,8 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
     
     func ht_playerControl(var_playerControl: HTClassPlayerControl, var_playerStateDidChange var_state: HTEnumPlayerState) {
      
-        if var_state == .htEnumPlayerStateBuffering && player.var_player.var_currentTime != 0 {
-            // 卡顿计数
+        if var_state == .htEnumPlayerStateBuffering && player.var_player.var_currentTime != 0 && !player.var_player.var_isSeeking {
+            // 卡顿计数 排除首次加载和seek
             print("-----> 卡顿一次")
         }
     }
