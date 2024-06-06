@@ -46,7 +46,7 @@ class HTClassPlayerTopControl: UIView {
         
         ht_removeAllSubviews()
         for var_model in var_datas {
-            let var_view = HTClassControlView()
+            let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? HTClassControlView()
             var_view.var_click = { [weak self] var_controlModel in
                 self?.var_click?(var_controlModel)
             }
@@ -63,12 +63,26 @@ class HTClassPlayerTopControl: UIView {
                     }
                 }
             }
-            var_subviews.append(var_view)
+            if !var_subviews.contains(var_view) {
+                var_subviews.append(var_view)
+            }
         }
     }
+
+    func ht_subviewWith(_ var_type: HTEnumControlType) -> UIView? {
         
+        for var_subview in var_subviews {
+            if var_type == .htEnumControlTypeProgresss, var_subview is HTClassPlayerProgressView {
+                return var_subview
+            }
+            if let var_view = var_subview as? HTClassControlView, var_view.var_model?.var_type == var_type {
+                return var_view
+            }
+        }
+        return nil
+    }
+
     func ht_removeAllSubviews() {
-        var_subviews.removeAll()
         for var_view in var_stackView.arrangedSubviews {
             var_stackView.removeArrangedSubview(var_view)
             var_view.removeFromSuperview()

@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let url = """
-    https://vdept3.bdstatic.com/mda-mfuf163rfmkn36i7/sc/cae_h264_nowatermark/1624963807340099361/mda-mfuf163rfmkn36i7.mp4?v_from_s=hkapp-haokan-hbf&auth_key=1717592070-0-0-de3314102b468b51a7333ae2e218e106&bcevod_channel=searchbox_feed&pd=1&cr=2&cd=0&pt=3&logid=3270086284&vid=10554454971571011271&klogid=3270086284&abtest=101830_2-17451_2
+    https://vdept3.bdstatic.com/mda-mfuf163rfmkn36i7/sc/cae_h264_nowatermark/1624963807340099361/mda-mfuf163rfmkn36i7.mp4?v_from_s=hkapp-haokan-hbf&auth_key=1717648712-0-0-b29a80fb804d889f76f5f90bd5022d27&bcevod_channel=searchbox_feed&pd=1&cr=2&cd=0&pt=3&logid=2312418190&vid=10554454971571011271&klogid=2312418190&abtest=101830_2-17451_2
     """
     
     let player = HTClassPlayerControl()

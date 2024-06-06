@@ -285,6 +285,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_view.var_currentTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_currentTime))
             var_view.var_totalTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_totalTime))
+            var_view.var_slider.value = Float(var_currentTime) / Float(var_totalTime)
         }
     }
     

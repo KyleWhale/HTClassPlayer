@@ -57,13 +57,13 @@ class HTClassPlayerBottomControl: UIView {
             for var_model in var_column {
                 
                 if var_model.var_type == .htEnumControlTypeProgresss {
-                    let var_view = HTClassPlayerProgressView()
+                    let var_view = ht_subviewWith(.htEnumControlTypeProgresss) ?? HTClassPlayerProgressView()
                     var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                     var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                     var_row.addArrangedSubview(var_view)
                     var_subviews.append(var_view)
                 } else {
-                    let var_view = HTClassControlView()
+                    let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? HTClassControlView()
                     var_view.var_click = { [weak self] var_controlModel in
                         self?.var_click?(var_controlModel)
                     }
@@ -80,19 +80,28 @@ class HTClassPlayerBottomControl: UIView {
                             }
                         }
                     }
-                    var_subviews.append(var_view)
+                    if !var_subviews.contains(var_view) {
+                        var_subviews.append(var_view)
+                    }
                 }
             }
         }
     }
     
-    func ht_containWith(_ var_type: HTEnumControlType) -> Bool {
+    func ht_subviewWith(_ var_type: HTEnumControlType) -> UIView? {
         
-        return false
+        for var_subview in var_subviews {
+            if var_type == .htEnumControlTypeProgresss, var_subview is HTClassPlayerProgressView {
+                return var_subview
+            }
+            if let var_view = var_subview as? HTClassControlView, var_view.var_model?.var_type == var_type {
+                return var_view
+            }
+        }
+        return nil
     }
     
     func ht_removeAllSubviews() {
-        var_subviews.removeAll()
         for var_view in var_stackView.arrangedSubviews {
             if let var_row = var_view as? UIStackView {
                 for var_subview in var_row.arrangedSubviews {
