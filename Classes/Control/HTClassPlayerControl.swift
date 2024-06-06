@@ -140,13 +140,18 @@ public class HTClassPlayerControl: UIView {
             case .valueChanged:
                 let var_target = var_player.var_totalTime * Double(var_slider.value)
                 if let var_progressView = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
-                    var_progressView.var_currentTimeLabel.text = var_progressView.ht_convertSecondsToHMS(Int(var_target))
+                    var_progressView.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_target))
                 }
                 break
             default:
                 break
             }
         }
+        return var_view
+    }()
+    lazy var var_progressAlert: HTClassPlayerProgressAlert = {
+        let var_view = HTClassPlayerProgressAlert()
+        var_view.ht_dismiss()
         return var_view
     }()
     // loading
@@ -213,6 +218,12 @@ public class HTClassPlayerControl: UIView {
             make.center.equalToSuperview()
             make.size.equalTo(15)
         }
+        
+        self.addSubview(var_progressAlert)
+        var_progressAlert.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSizeMake(150, 44))
+        }
     }
     // 横竖屏修改Layout
     open override func layoutSubviews() {
@@ -234,6 +245,11 @@ public class HTClassPlayerControl: UIView {
                 make.bottom.equalToSuperview()
                 make.left.right.equalToSuperview().inset(10)
             }
+            var_progressAlert.snp.remakeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(var_topControl.snp.bottom).offset(20)
+                make.size.equalTo(CGSizeMake(150, 44))
+            }
         } else {
             var_leftControl.snp.remakeConstraints { make in
                 make.left.equalToSuperview()
@@ -247,6 +263,10 @@ public class HTClassPlayerControl: UIView {
             }
             var_bottomControl.snp.remakeConstraints { make in
                 make.bottom.left.right.equalToSuperview()
+            }
+            var_progressAlert.snp.remakeConstraints { make in
+                make.center.equalToSuperview()
+                make.size.equalTo(CGSizeMake(150, 44))
             }
         }
     }
@@ -446,6 +466,7 @@ public class HTClassPlayerControl: UIView {
             if self.var_showControl {
                 self.perform(#selector(ht_auto), with: nil, afterDelay: 5.0)
             }
+            var_progressAlert.ht_dismiss()
             switch self.var_panDirection {
             case .htEnumHorizontal:
                 ht_seekToTime(self.var_sumTime) { [weak self] in
@@ -477,8 +498,9 @@ public class HTClassPlayerControl: UIView {
         if (self.var_sumTime <= 0) { self.var_sumTime = 0 }
         if let var_progressView = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_progressView.var_slider.value = Float(self.var_sumTime / var_totalDuration)
-            var_progressView.var_currentTimeLabel.text = var_progressView.ht_convertSecondsToHMS(Int(self.var_sumTime))
+            var_progressView.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(self.var_sumTime))
         }
+        var_progressAlert.ht_show(var_currentTime: self.var_sumTime, var_totalTime: var_totalDuration)
     }
     // 竖滑计算
     fileprivate func ht_verticalMoved(_ value: CGFloat) {
@@ -526,8 +548,8 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     
     public func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
-            var_view.var_currentTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_currentTime))
-            var_view.var_totalTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_totalTime))
+            var_view.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_currentTime))
+            var_view.var_totalTimeLabel.text = ht_convertSecondsToHMS(Int(var_totalTime))
             var_view.var_slider.value = Float(var_currentTime) / Float(var_totalTime)
         }
         var_delegate?.ht_playerControl?(var_playerControl: self, var_playTimeDidChange: var_currentTime, var_totalTime: var_totalTime)
@@ -536,7 +558,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     public func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval) {
         // 缓冲进度
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
-            var_view.var_totalTimeLabel.text = var_view.ht_convertSecondsToHMS(Int(var_totalTime))
+            var_view.var_totalTimeLabel.text = ht_convertSecondsToHMS(Int(var_totalTime))
         }
         var_delegate?.ht_playerControl?(var_playerControl: self, var_loadedTimeDidChange: var_loadedDuration, var_totalTime: var_totalTime)
     }

@@ -81,14 +81,7 @@ class HTClassPlayerProgressView: UIView {
             make.right.equalTo(var_totalTimeLabel.snp.left).offset(-10)
         }
     }
-    
-    func ht_convertSecondsToHMS(_ var_seconds: Int) -> String {
-        let var_hours = var_seconds / 3600
-        let var_minutes = (var_seconds % 3600) / 60
-        let var_seconds = var_seconds % 60
-        return String(format: "%02d:%02d:%02d", var_hours, var_minutes, var_seconds)
-    }
-    
+        
     @objc func ht_handleSliderTap(_ var_recognizer: UITapGestureRecognizer) {
         let var_slider = var_recognizer.view as! UISlider
         let var_point = var_recognizer.location(in: var_slider)

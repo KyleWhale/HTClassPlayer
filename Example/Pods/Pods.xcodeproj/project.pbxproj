@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		011A31F115F9BAE1B0B43AA192C815DD /* DisplayLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1200A7634B5AB7C6D0ABA08BA1A59465 /* DisplayLink.swift */; };
+		01338D882C11B9F40006D76A /* HTClassPlayerProgressAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D872C11B9F40006D76A /* HTClassPlayerProgressAlert.swift */; };
 		017DD39F1ED48234489B5C17E174A1F6 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C48785F46C870DCE4D7A5A0E030353 /* MemoryStorage.swift */; };
 		018895E358A88E7C2B123AFAB9C7F932 /* KF.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17614CC8B1C78D578E56B9A21A8A55 /* KF.swift */; };
 		036391B89A4207CD19860AD64B24D5C5 /* ConstraintLayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12EB9A9C520DD447357E833C63847E8 /* ConstraintLayoutSupport.swift */; };
@@ -194,7 +195,8 @@
 		00AAE82EF216A3F8473023F675280E67 /* ImageDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDataProvider.swift; path = Sources/General/ImageSource/ImageDataProvider.swift; sourceTree = "<group>"; };
 		01172773A137E6CF8416B8FB12EAA651 /* Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kingfisher.swift; path = Sources/General/Kingfisher.swift; sourceTree = "<group>"; };
 		01215562080697BBAD0B5F85EBD4F5E5 /* ConstraintPriority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriority.swift; path = Sources/ConstraintPriority.swift; sourceTree = "<group>"; };
-		024FCBBBFDBBA58B18DC7C3F33C8524C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		01338D872C11B9F40006D76A /* HTClassPlayerProgressAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTClassPlayerProgressAlert.swift; sourceTree = "<group>"; };
+		024FCBBBFDBBA58B18DC7C3F33C8524C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0557538F467DC639956681D6E50F2D81 /* ConstraintMakerRelatable+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintMakerRelatable+Extensions.swift"; path = "Sources/ConstraintMakerRelatable+Extensions.swift"; sourceTree = "<group>"; };
 		05C75FE092D6D8267BE23AFAEDAB9993 /* ConstraintMakerPrioritizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerPrioritizable.swift; path = Sources/ConstraintMakerPrioritizable.swift; sourceTree = "<group>"; };
 		087AB3F992C3E0BC2850935814AB5F00 /* Kingfisher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Kingfisher.release.xcconfig; sourceTree = "<group>"; };
@@ -252,12 +254,12 @@
 		550A1C13E3A9C2EEA9C337FB13351E6F /* Placeholder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Placeholder.swift; path = Sources/Image/Placeholder.swift; sourceTree = "<group>"; };
 		57B21F76B11EC3B5C2B0BA17E9817627 /* KFImageRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KFImageRenderer.swift; path = Sources/SwiftUI/KFImageRenderer.swift; sourceTree = "<group>"; };
 		5A4F0C5523A0C8695B0EF0C32F23D3EF /* HTClassPlayerProgressView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTClassPlayerProgressView.swift; sourceTree = "<group>"; };
-		5A87DD717B9FDC4B554A27BE977CA496 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Sources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		5A87DD717B9FDC4B554A27BE977CA496 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Sources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5AACA02C8785393A5050429D6F105BE6 /* LayoutConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraint.swift; path = Sources/LayoutConstraint.swift; sourceTree = "<group>"; };
 		5B429F2C6B25FFB102FB742E2A7A844B /* SizeExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SizeExtensions.swift; path = Sources/Utility/SizeExtensions.swift; sourceTree = "<group>"; };
 		5C591E4336FCBD5FDD5C363E7BA16F77 /* RedirectHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RedirectHandler.swift; path = Sources/Networking/RedirectHandler.swift; sourceTree = "<group>"; };
 		5C6317A6E3296150B092B03738E0B9D9 /* HTClassPlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HTClassPlayer-umbrella.h"; sourceTree = "<group>"; };
-		6214D6292A18EA64C433ABDCC5D03349 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		6214D6292A18EA64C433ABDCC5D03349 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		65F12330A4D7155A4EDF3C1DF9BFA4F8 /* HTClassPlayerControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTClassPlayerControl.swift; sourceTree = "<group>"; };
 		669E8F25E1897672BDB80B7EB784DA24 /* Pods-Runner */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Runner"; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE58AABD0B7C61B4623426512EB60BD /* HTClassPlayerCenterControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTClassPlayerCenterControl.swift; sourceTree = "<group>"; };
@@ -281,7 +283,7 @@
 		990288B71842A054191A6FBF3A131084 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMultiplierTarget.swift; path = Sources/ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
 		9A9B54CE2292951359E2DE9311536ED5 /* TVMonogramView+Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TVMonogramView+Kingfisher.swift"; path = "Sources/Extensions/TVMonogramView+Kingfisher.swift"; sourceTree = "<group>"; };
 		9BBBBFAC963E8D5C8F7B589530C4E0AC /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Sources/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F07A724A2B70ABEB4F9D5E11AB88F5F /* ConstraintAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintAttributes.swift; path = Sources/ConstraintAttributes.swift; sourceTree = "<group>"; };
 		A0BC9CC14E8CB23B3562C9477E7F48B5 /* Delegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Delegate.swift; path = Sources/Utility/Delegate.swift; sourceTree = "<group>"; };
 		A4C48785F46C870DCE4D7A5A0E030353 /* MemoryStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MemoryStorage.swift; path = Sources/Cache/MemoryStorage.swift; sourceTree = "<group>"; };
@@ -332,7 +334,7 @@
 		E3ED8D84B93577B79BBEA2495FD2F2AF /* SnapKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnapKit-dummy.m"; sourceTree = "<group>"; };
 		E517BA7FF346478E60348305C4AD3E96 /* Image.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Image.swift; path = Sources/Image/Image.swift; sourceTree = "<group>"; };
 		E7EF2D1F09A3C28343154B0BD905C3DC /* Kingfisher-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Kingfisher-Info.plist"; sourceTree = "<group>"; };
-		E9B0C5415D2929E6E61E5149297B7D96 /* HTClassPlayer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = HTClassPlayer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E9B0C5415D2929E6E61E5149297B7D96 /* HTClassPlayer.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = HTClassPlayer.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EAA671A8681BECCCACFCE452DB87693C /* KFImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KFImage.swift; path = Sources/SwiftUI/KFImage.swift; sourceTree = "<group>"; };
 		EBD83EC8BBB17791C44028A17A8FA084 /* UIButton+Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIButton+Kingfisher.swift"; path = "Sources/Extensions/UIButton+Kingfisher.swift"; sourceTree = "<group>"; };
 		ED3C8AE96AB546041C819907279164AD /* SnapKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.debug.xcconfig; sourceTree = "<group>"; };
@@ -340,7 +342,7 @@
 		EDF7124A498EE3C88E2A9354AD105E53 /* RetryStrategy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryStrategy.swift; path = Sources/Networking/RetryStrategy.swift; sourceTree = "<group>"; };
 		EE610229A232BE607727A2698B5DCBFB /* Runtime.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Runtime.swift; path = Sources/Utility/Runtime.swift; sourceTree = "<group>"; };
 		EEAAB4C8F0A2DA20CAB88833FDB17078 /* HTClassPlayer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HTClassPlayer-prefix.pch"; sourceTree = "<group>"; };
-		F26E7180A1B5C20347A7972D21860A76 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Sources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		F26E7180A1B5C20347A7972D21860A76 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Sources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F692CDAA2BCF26D2144CB5F2DD9282B4 /* GraphicsContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GraphicsContext.swift; path = Sources/Image/GraphicsContext.swift; sourceTree = "<group>"; };
 		F737A4D5C61A85A924749E848D79EFA4 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Sources/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
 		F7DA482C1D548B597F2A2ADB6F54FF11 /* ImageContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageContext.swift; path = Sources/SwiftUI/ImageContext.swift; sourceTree = "<group>"; };
@@ -546,7 +548,6 @@
 				757A31A782D7A8340EF1784922F5A14D /* Resources */,
 				9B38B4992DBEEBCED60CAA0EF43973F6 /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -624,6 +625,7 @@
 				0E3F9C1B684ADE8EE48F3816B183AB07 /* HTClassPlayerRightControl.swift */,
 				849471BD9113BA2D0A9FF9F82E3A856A /* HTClassPlayerTopControl.swift */,
 				48733B43B071CD6AD833BA693088C9BD /* HTClassTimeSlider.swift */,
+				01338D872C11B9F40006D76A /* HTClassPlayerProgressAlert.swift */,
 			);
 			name = Control;
 			path = Classes/Control;
@@ -707,7 +709,6 @@
 				28A9D0FF170030E387A00316C11BEF4D /* Resources */,
 				596F15D937844D5B5F86EB5FD04D51A7 /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -1096,6 +1097,7 @@
 			files = (
 				27E73554EF6EF8D5AA5C72C524089E95 /* HTClassControlView.swift in Sources */,
 				08D3BE26F6D99AB491E9D58BBEC8C39A /* HTClassPlayer-dummy.m in Sources */,
+				01338D882C11B9F40006D76A /* HTClassPlayerProgressAlert.swift in Sources */,
 				B5A99921F4A459BC441B1700D46A7425 /* HTClassPlayerBottomControl.swift in Sources */,
 				C04649EEB57941CAD1E48AAB5C9B4FE4 /* HTClassPlayerCenterControl.swift in Sources */,
 				7208B6B452C3B5E3DF1D9A912C5010B5 /* HTClassPlayerControl.swift in Sources */,

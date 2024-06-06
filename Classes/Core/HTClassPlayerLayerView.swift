@@ -66,9 +66,9 @@ public class HTClassPlayerLayerView: UIView {
         }
     }
     
-    var var_player: AVPlayer?
-    var var_playerLayer: AVPlayerLayer?
-    var var_playerItem: AVPlayerItem? {
+    public var var_player: AVPlayer?
+    public var var_playerLayer: AVPlayerLayer?
+    public var var_playerItem: AVPlayerItem? {
         didSet {
             if var_playerItem == nil {
                 ht_removeObserverIfNeeded()
@@ -77,14 +77,14 @@ public class HTClassPlayerLayerView: UIView {
             }
         }
     }
-    var var_playEnd: Bool = false
-    var var_currentURL: URL?
-    var var_isObserving: Bool = false
-    var var_isBuffering: Bool = false
-    var var_readyToPlay: Bool = false
-    private var var_timer: Timer?
+    public var var_playEnd: Bool = false
+    public var var_currentURL: URL?
+    public var var_isObserving: Bool = false
+    public var var_isBuffering: Bool = false
+    public var var_readyToPlay: Bool = false
+    public var var_timer: Timer?
 
-    private var var_state: HTEnumPlayerState = .htEnumPlayerStateNoURL {
+    public var var_state: HTEnumPlayerState = .htEnumPlayerStateNoURL {
         didSet {
             if var_state != oldValue {
                 self.var_delegate?.ht_player?(var_player: self, var_playerStateDidChange: var_state)
@@ -118,7 +118,7 @@ public class HTClassPlayerLayerView: UIView {
     }
     
     // 重置播放状态
-    func ht_resetPlayer() {
+    public func ht_resetPlayer() {
         
         var_playEnd = false
         var_isPlaying = false
@@ -133,19 +133,19 @@ public class HTClassPlayerLayerView: UIView {
         ht_invalidateTimer()
     }
     
-    func ht_invalidateTimer() {
+    public func ht_invalidateTimer() {
         var_timer?.invalidate()
         var_timer = nil
     }
     
-    func ht_pauseTimer() {
+    public func ht_pauseTimer() {
         if var_playerItem?.status == .readyToPlay {
             var_timer?.fireDate = Date.distantFuture
         }
     }
         
     // 开始播放｜替换URL
-    func ht_playVideo(_ var_url: URL) {
+    public func ht_playVideo(_ var_url: URL) {
         
         if var_currentURL == var_url {
             ht_play()
@@ -165,27 +165,27 @@ public class HTClassPlayerLayerView: UIView {
     }
         
     // 播放
-    func ht_play() {
+    public func ht_play() {
         var_player?.play()
         var_isPlaying = true
         var_timer?.fireDate = Date()
     }
     
     // 暂停
-    func ht_pause() {
+    public func ht_pause() {
         var_player?.pause()
         var_isPlaying = false
         var_timer?.fireDate = Date.distantFuture
     }
 
     // 停止
-    func ht_stop() {
+    public func ht_stop() {
         var_player?.pause()
         ht_resetPlayer()
     }
     
     // seekto
-    func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
+    public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
         
         if var_time.isNaN {
             return
@@ -336,7 +336,7 @@ public class HTClassPlayerLayerView: UIView {
         }
     }
     
-    func ht_prepareToDeinit() {
+    public func ht_prepareToDeinit() {
         ht_resetPlayer()
     }
     
