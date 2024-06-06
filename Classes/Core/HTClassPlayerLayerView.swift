@@ -9,9 +9,13 @@ import Foundation
 
 @objc protocol HTClassPlayerLayerViewDelegate: NSObjectProtocol {
     
+    // 是否正在播放
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_isPlaying: Bool)
+    // 播放状态
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState)
+    // 播放时长
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval)
+    // 缓冲进度
     @objc optional func ht_player(var_player: HTClassPlayerLayerView, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
 }
 
@@ -28,9 +32,30 @@ open class HTClassPlayerLayerView: UIView {
         }
     }
     
-    private var var_player: AVPlayer?
-    private var var_playerLayer: AVPlayerLayer?
-    private var var_playerItem: AVPlayerItem? {
+    var var_currentTime: TimeInterval {
+        get {
+            if let var_item = var_playerItem {
+                return CMTimeGetSeconds(var_item.currentTime())
+            }
+            return 0
+        }
+    }
+    
+    var var_totalTime: TimeInterval {
+        get {
+            if let var_item = var_playerItem {
+                if var_item.duration.timescale == 0 {
+                    return 0
+                }
+                return TimeInterval(var_item.duration.value) / TimeInterval(var_item.duration.timescale)
+            }
+            return 0
+        }
+    }
+    
+    var var_player: AVPlayer?
+    var var_playerLayer: AVPlayerLayer?
+    var var_playerItem: AVPlayerItem? {
         didSet {
             if var_playerItem == nil {
                 ht_removeObserverIfNeeded()
@@ -39,11 +64,11 @@ open class HTClassPlayerLayerView: UIView {
             }
         }
     }
-    private var var_currentURL: URL?
-    private var var_isObserving: Bool = false
-    private var var_isBuffering: Bool = false
-    private var var_readyToPlay: Bool = false
-    private var var_playEnd: Bool = false
+    var var_playEnd: Bool = false
+    var var_currentURL: URL?
+    var var_isObserving: Bool = false
+    var var_isBuffering: Bool = false
+    var var_readyToPlay: Bool = false
     private var var_timer: Timer?
 
     private var var_state: HTEnumPlayerState = .htEnumPlayerStateNoURL {
@@ -87,12 +112,29 @@ open class HTClassPlayerLayerView: UIView {
         var_readyToPlay = false
         var_isBuffering = false
         var_seekTime = 0
-        var_timer?.invalidate()
         ht_pause()
         ht_removeObserverIfNeeded()
         var_currentURL = nil
         var_playerItem = nil
         var_player?.replaceCurrentItem(with: nil)
+        ht_invalidateTimer()
+    }
+    
+    func ht_invalidateTimer() {
+        var_timer?.invalidate()
+        var_timer = nil
+    }
+    
+    func ht_pauseTimer() {
+        if var_playerItem?.status == .readyToPlay {
+            var_timer?.fireDate = Date.distantFuture
+        }
+    }
+    
+    func ht_startimer() {
+        if var_isPlaying {
+            var_timer?.fireDate = Date()
+        }
     }
     
     // 开始播放｜替换URL
@@ -102,6 +144,10 @@ open class HTClassPlayerLayerView: UIView {
             ht_play()
             return
         }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch  {}
         ht_resetPlayer()
         var_currentURL = var_url
         var_playerItem = AVPlayerItem(url: var_url)
@@ -110,7 +156,7 @@ open class HTClassPlayerLayerView: UIView {
         var_isPlaying = true
         ht_setupTimer()
     }
-    
+        
     // 播放
     func ht_play() {
         var_player?.play()
@@ -169,8 +215,11 @@ open class HTClassPlayerLayerView: UIView {
     }
     
     private func ht_setupTimer() {
-        var_timer?.invalidate()
-        var_timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ht_playerTimerAction), userInfo: nil, repeats: true)
+        ht_invalidateTimer()
+        var_timer = Timer.init(timeInterval: 0.5, repeats: true) { [weak self] _ in
+            self?.ht_playerTimerAction()
+        }
+        RunLoop.current.add(var_timer!, forMode: .common)
         var_timer?.fireDate = Date()
     }
     
@@ -208,24 +257,21 @@ open class HTClassPlayerLayerView: UIView {
                         ht_moviePlayDidEnd()
                         return
                     }
-                    if var_currentItem.isPlaybackLikelyToKeepUp || var_currentItem.isPlaybackBufferFull {
-                        
-                    }
                 }
             }
         }
     }
     
     @objc private func ht_moviePlayDidEnd() {
+        
         if var_state != .htEnumPlayerStatePlayToTheEnd {
             if let var_playerItem = var_playerItem {
                 var_delegate?.ht_player?(var_player: self, var_playTimeDidChange: CMTimeGetSeconds(var_playerItem.duration), var_totalTime: CMTimeGetSeconds(var_playerItem.duration))
             }
-            
-            self.var_state = .htEnumPlayerStatePlayToTheEnd
             self.var_isPlaying = false
             self.var_playEnd = true
-            self.var_timer?.invalidate()
+            self.var_timer?.fireDate = Date.distantFuture
+            self.var_state = .htEnumPlayerStatePlayToTheEnd
         }
     }
     
@@ -269,13 +315,18 @@ open class HTClassPlayerLayerView: UIView {
                 }
             }
         } else if keyPath == ht_AsciiString("rate") {
-            print("倍速变化")
+            ht_updateStatus()
         }
+    }
+    
+    func ht_prepareToDeinit() {
+        ht_resetPlayer()
     }
     
     deinit {
         ht_playerRemoveObserver(ht_AsciiString("rate"))
-        ht_removeObserverIfNeeded()
+        NotificationCenter.default.removeObserver(self)
+        print("播放器释放了")
     }
 }
 

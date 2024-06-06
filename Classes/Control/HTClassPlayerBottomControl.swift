@@ -10,6 +10,7 @@ import Foundation
 class HTClassPlayerBottomControl: UIView {
     
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
+    var var_sliderChange: ((UISlider, UIControl.Event) -> Void)?
 
     lazy var var_stackView: UIStackView = {
         let var_view = UIStackView()
@@ -57,7 +58,10 @@ class HTClassPlayerBottomControl: UIView {
             for var_model in var_column {
                 
                 if var_model.var_type == .htEnumControlTypeProgresss {
-                    let var_view = ht_subviewWith(.htEnumControlTypeProgresss) ?? HTClassPlayerProgressView()
+                    let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView ?? HTClassPlayerProgressView()
+                    var_view.var_sliderChange = { [weak self] var_slider, var_eventType in
+                        self?.var_sliderChange?(var_slider, var_eventType)
+                    }
                     var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                     var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                     var_row.addArrangedSubview(var_view)

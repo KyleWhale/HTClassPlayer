@@ -9,6 +9,8 @@ import Foundation
 
 class HTClassPlayerProgressView: UIView {
     
+    var var_sliderChange: ((UISlider, UIControl.Event) -> Void)?
+    
     lazy var var_currentTimeLabel: UILabel = {
         let var_view = UILabel()
         var_view.text = ht_convertSecondsToHMS(0)
@@ -30,6 +32,10 @@ class HTClassPlayerProgressView: UIView {
         var_view.addTarget(self, action: #selector(ht_progressSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
         let var_touchEnd: UIControl.Event = [UIControl.Event.touchUpInside, UIControl.Event.touchCancel, UIControl.Event.touchUpOutside]
         var_view.addTarget(self, action: #selector(ht_progressSliderTouchEnded(_:)), for: var_touchEnd)
+        
+        let var_tapGesture = UITapGestureRecognizer(target: self, action: #selector(ht_handleSliderTap(_:)))
+        var_view.addGestureRecognizer(var_tapGesture)
+
         return var_view
     }()
     
@@ -83,15 +89,25 @@ class HTClassPlayerProgressView: UIView {
         return String(format: "%02d:%02d:%02d", var_hours, var_minutes, var_seconds)
     }
     
+    @objc func ht_handleSliderTap(_ var_recognizer: UITapGestureRecognizer) {
+        let var_slider = var_recognizer.view as! UISlider
+        let var_point = var_recognizer.location(in: var_slider)
+        let var_percentage = var_point.x / var_slider.bounds.width
+        let var_delta = Float(var_slider.maximumValue - var_slider.minimumValue)
+        let var_value = var_slider.minimumValue + Float(var_percentage) * var_delta
+        var_slider.setValue(var_value, animated: true)
+        ht_progressSliderTouchEnded(var_slider)
+    }
+
     @objc func ht_progressSliderTouchBegan(_ var_sender: UISlider)  {
-        
+        var_sliderChange?(var_sender, .touchDown)
     }
     
     @objc func ht_progressSliderValueChanged(_ var_sender: UISlider)  {
-        
+        var_sliderChange?(var_sender, .valueChanged)
     }
     
     @objc func ht_progressSliderTouchEnded(_ var_sender: UISlider)  {
-        
+        var_sliderChange?(var_sender, .touchUpInside)
     }
 }

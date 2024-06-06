@@ -15,6 +15,11 @@ enum HTEnumControlType {
     case htEnumControlTypeShare //分享
     case htEnumControlTypeCC //字幕
     case htEnumControlTypeCollection //收藏
+    case htEnumControlTypeRemoveAd //去广告
+    case htEnumControlTypeLock // 锁
+    case htEnumControlTypeBackward // 后退 10s
+    case htEnumControlTypeForward // 前进 10s
+    case htEnumControlTypeFullScreenPlayPause // 横屏播放暂停
     case htEnumControlTypePlayPause //播放暂停
     case htEnumControlTypeNextEpisode //下一集
     case htEnumControlTypeProgresss //进度 包括当前时间、slider、总时长
@@ -22,7 +27,7 @@ enum HTEnumControlType {
     case htEnumControlTypeFullscreen //全屏
 }
 // 这里注意使用方法赋值
-public class HTClassPlayerControlModel {
+@objc public class HTClassPlayerControlModel: NSObject {
     
     @discardableResult
     func ht_title(_ var_string: String) -> Self {

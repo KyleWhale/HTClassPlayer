@@ -1,22 +1,22 @@
 //
-//  HTClassPlayerCenterControl.swift
+//  HTClassPlayerLeftControl.swift
 //  HTClassPlayer
 //
-//  Created by 李雪健 on 2024/6/5.
+//  Created by 李雪健 on 2024/6/6.
 //
 
 import Foundation
 
-class HTClassPlayerCenterControl: UIView {
+class HTClassPlayerLeftControl: UIView {
     
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
 
     lazy var var_stackView: UIStackView = {
         let var_view = UIStackView()
-        var_view.axis = .horizontal
+        var_view.axis = .vertical
         var_view.alignment = .fill
         var_view.distribution = .fill
-        var_view.spacing = 70
+        var_view.spacing = 14
         return var_view
     }()
     
@@ -36,9 +36,9 @@ class HTClassPlayerCenterControl: UIView {
 
         addSubview(var_stackView)
         var_stackView.snp.makeConstraints { (make) in
-            make.height.equalTo(44)
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(8)
             make.left.right.equalToSuperview()
+            make.width.equalTo(44)
         }
     }
     
@@ -59,7 +59,7 @@ class HTClassPlayerCenterControl: UIView {
                 var_view.var_model = var_model
                 if let var_image = var_model.var_image, !var_image.isEmpty {
                     var_view.snp.remakeConstraints { make in
-                        make.width.equalTo(var_model.var_imageWidth)
+                        make.height.equalTo(var_model.var_imageWidth)
                     }
                 }
             }

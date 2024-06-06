@@ -26,7 +26,6 @@ func ht_AsciiString(_ string: String) -> String {
     return string
 }
 
-
 func ht_randomColor() -> UIColor {
     let var_red = CGFloat(arc4random_uniform(256)) / 255.0
     let var_green = CGFloat(arc4random_uniform(256)) / 255.0
