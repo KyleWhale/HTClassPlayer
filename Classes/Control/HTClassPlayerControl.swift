@@ -129,9 +129,6 @@ public class HTClassPlayerControl: UIView {
                 ht_seekToTime(var_target) { [weak self] in
                     guard let self = self else {return}
                     var_sliding = false
-                    if var_isPlaying {
-                        ht_play()
-                    }
                     var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 0)
                 }
                 // 重置自动隐藏
@@ -475,9 +472,6 @@ public class HTClassPlayerControl: UIView {
                 ht_seekToTime(self.var_sumTime) { [weak self] in
                     guard let self = self else {return}
                     var_sliding = false
-                    if var_isPlaying {
-                        ht_play()
-                    }
                     var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 1)
                 }
                 break
@@ -551,6 +545,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     }
     
     public func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
+        
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
             var_view.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_currentTime))
             var_view.var_totalTimeLabel.text = ht_convertSecondsToHMS(Int(var_totalTime))

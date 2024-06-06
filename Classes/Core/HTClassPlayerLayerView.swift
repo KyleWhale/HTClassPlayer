@@ -252,9 +252,6 @@ public class HTClassPlayerLayerView: UIView {
             if let var_playerItem = var_playerItem, var_includeLoading {
                 if var_readyToPlay && (var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull) {
                     self.var_state = .htEnumPlayerStateBufferFinished
-                    if var_isPlaying {
-                        var_player.play()
-                    }
                 } else if var_playerItem.status == .failed && self.var_state != .htEnumPlayerStateError {
                     self.var_state = .htEnumPlayerStateError
                 } else if self.var_state != .htEnumPlayerStateBuffering {
@@ -325,9 +322,6 @@ public class HTClassPlayerLayerView: UIView {
                 if var_item.isPlaybackBufferEmpty {
                     if var_state != .htEnumPlayerStateBufferFinished && var_readyToPlay {
                         self.var_state = .htEnumPlayerStateBufferFinished
-                        if var_isPlaying {
-                            var_player?.play()
-                        }
                     }
                 }
             }
