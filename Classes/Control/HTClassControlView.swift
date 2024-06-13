@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HTClassControlView: UIView {
+open class HTClassControlView: UIView {
     
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
     
@@ -19,33 +19,33 @@ class HTClassControlView: UIView {
             ht_update()
         }
     }
-    
-    lazy var var_titleLabel: UILabel = {
+    // 只支持 var_model 赋值
+    public lazy var var_titleLabel: UILabel = {
         let var_view = UILabel()
         var_view.isHidden = true
         var_view.textColor = .white
         var_view.font = .systemFont(ofSize: 14, weight: .regular)
         return var_view
     }()
-    
-    lazy var var_imageView: UIImageView = {
+    // 只支持 var_model 赋值
+    public lazy var var_imageView: UIImageView = {
         let var_view = UIImageView()
         var_view.isHidden = true
         var_view.contentMode = .scaleAspectFit
         return var_view
     }()
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         ht_setupViews()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         ht_setupViews()
     }
     
-    func ht_setupViews() {
+    open func ht_setupViews() {
         
         let var_singleTap = UITapGestureRecognizer(target: self, action: #selector(ht_singleTapAction))
         var_singleTap.numberOfTapsRequired = 1

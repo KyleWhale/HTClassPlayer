@@ -18,7 +18,7 @@ open class HTClassPlayerProgressAlert: UIView {
         return var_view
     }()
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         ht_setupViews()
     }

@@ -20,7 +20,7 @@ public class HTClassPlayerBottomControl: UIView {
         return var_view
     }()
     
-    var var_subviews: [UIView] = []
+    public var var_subviews: [UIView] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,12 +48,12 @@ public class HTClassPlayerBottomControl: UIView {
         for var_column in var_datas {
             let var_row = UIStackView()
             var_row.axis = .horizontal
-            var_row.alignment = .fill
+            var_row.alignment = .center
             var_row.distribution = .fill
             var_row.spacing = 14
             var_stackView.addArrangedSubview(var_row)
             var_row.snp.remakeConstraints { make in
-                make.height.equalTo(44)
+                make.height.greaterThanOrEqualTo(44)
             }
             for var_model in var_column {
                 
@@ -67,7 +67,7 @@ public class HTClassPlayerBottomControl: UIView {
                     var_row.addArrangedSubview(var_view)
                     var_subviews.append(var_view)
                 } else {
-                    let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? HTClassControlView()
+                    let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? (var_model.var_customView ?? HTClassControlView())
                     var_view.var_click = { [weak self] var_controlModel in
                         self?.var_click?(var_controlModel)
                     }
@@ -76,11 +76,18 @@ public class HTClassPlayerBottomControl: UIView {
                         var_view.isUserInteractionEnabled = false
                         var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                         var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                        var_view.snp.remakeConstraints { make in
+                            make.size.greaterThanOrEqualTo(var_model.var_size)
+                        }
                     } else {
                         var_view.var_model = var_model
-                        if let var_image = var_model.var_image, !var_image.isEmpty {
+                        if var_model.var_customView != nil {
                             var_view.snp.remakeConstraints { make in
-                                make.width.equalTo(var_model.var_imageWidth)
+                                make.size.equalTo(var_model.var_size)
+                            }
+                        } else if let var_image = var_model.var_image, !var_image.isEmpty {
+                            var_view.snp.remakeConstraints { make in
+                                make.size.equalTo(var_model.var_size)
                             }
                         }
                     }

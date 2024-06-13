@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011D2C5E2C1AA0630033A8CB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011D2C5D2C1AA0630033A8CB /* CustomView.swift */; };
 		01338D722C11AF060006D76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D712C11AF060006D76A /* AppDelegate.swift */; };
 		01338D742C11AF060006D76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D732C11AF060006D76A /* SceneDelegate.swift */; };
 		01338D762C11AF060006D76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D752C11AF060006D76A /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		011D2C5D2C1AA0630033A8CB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		01338D6E2C11AF060006D76A /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01338D712C11AF060006D76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01338D732C11AF060006D76A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				01338D732C11AF060006D76A /* SceneDelegate.swift */,
 				01338D752C11AF060006D76A /* ViewController.swift */,
 				01338D852C11AF9D0006D76A /* VideoPlayerController.swift */,
+				011D2C5D2C1AA0630033A8CB /* CustomView.swift */,
 				01338D772C11AF060006D76A /* Main.storyboard */,
 				01338D7A2C11AF070006D76A /* Assets.xcassets */,
 				01338D7C2C11AF070006D76A /* LaunchScreen.storyboard */,
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				011D2C5E2C1AA0630033A8CB /* CustomView.swift in Sources */,
 				01338D762C11AF060006D76A /* ViewController.swift in Sources */,
 				01338D722C11AF060006D76A /* AppDelegate.swift in Sources */,
 				01338D862C11AF9D0006D76A /* VideoPlayerController.swift in Sources */,

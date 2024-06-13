@@ -9,18 +9,18 @@ import Foundation
 
 public class HTClassPlayerLeftControl: UIView {
     
-    var var_click: ((HTClassPlayerControlModel?) -> Void)?
+    public var var_click: ((HTClassPlayerControlModel?) -> Void)?
 
-    lazy var var_stackView: UIStackView = {
+    public lazy var var_stackView: UIStackView = {
         let var_view = UIStackView()
         var_view.axis = .vertical
-        var_view.alignment = .fill
+        var_view.alignment = .center
         var_view.distribution = .fill
         var_view.spacing = 14
         return var_view
     }()
     
-    var var_subviews: [UIView] = []
+    public var var_subviews: [UIView] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,9 +36,8 @@ public class HTClassPlayerLeftControl: UIView {
 
         addSubview(var_stackView)
         var_stackView.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.left.right.equalToSuperview()
-            make.width.equalTo(44)
+            make.edges.equalToSuperview()
+            make.width.greaterThanOrEqualTo(44)
         }
     }
     
@@ -46,7 +45,7 @@ public class HTClassPlayerLeftControl: UIView {
         
         ht_removeAllSubviews()
         for var_model in var_datas {
-            let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? HTClassControlView()
+            let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? (var_model.var_customView ?? HTClassControlView())
             var_view.var_click = { [weak self] var_controlModel in
                 self?.var_click?(var_controlModel)
             }
@@ -55,11 +54,14 @@ public class HTClassPlayerLeftControl: UIView {
                 var_view.isUserInteractionEnabled = false
                 var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                 var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                var_view.snp.remakeConstraints { make in
+                    make.size.greaterThanOrEqualTo(var_model.var_size)
+                }
             } else {
                 var_view.var_model = var_model
                 if let var_image = var_model.var_image, !var_image.isEmpty {
                     var_view.snp.remakeConstraints { make in
-                        make.height.equalTo(var_model.var_imageWidth)
+                        make.size.equalTo(var_model.var_size)
                     }
                 }
             }

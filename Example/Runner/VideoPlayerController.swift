@@ -54,7 +54,7 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     func ht_resetControl(_ var_isFullscreen: Bool) {
         
         if var_isFullscreen {
-            // 这里的model最好保存下来使用 用来切换选中状态 例如字幕、播放状态、收藏状态等ht_setSelected()
+            // 这里的model最好保存下来使用 用来切换状态 例如标题 ht_title() 字幕状态、播放状态、收藏状态等ht_setSelected() 如不想使用选中逻辑，也可直接切换图片ht_image()
             player.var_topControl.ht_reloadData([
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image(ht_image(39)),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeTitle).ht_title("Godzilla x Kong: The New Empire"),
@@ -72,6 +72,7 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image(ht_image(180)).ht_selectImage(ht_image(181)).ht_setSelected(player.var_isPlaying),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeNextEpisode).ht_image(ht_image(179)),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
+                    HTClassPlayerControlModel().ht_type(.htEnumControlTypeSubtitle).ht_customView(CustomView()).ht_size(CGSize(width: 120, height: 22)).ht_title("abcdefghijklmn"),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeEpisodes).ht_title("Episode"),
                 ]
             ])
@@ -80,9 +81,9 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeRemoveAd).ht_image(ht_image(184)),
             ])
             player.var_centerControl.ht_reloadData([
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeBackward).ht_image(ht_image(100)).ht_imageWidth(40),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullScreenPlayPause).ht_image(ht_image(185)).ht_selectImage(ht_image(186)).ht_imageWidth(44).ht_setSelected(player.var_isPlaying),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeForward).ht_image(ht_image(103)).ht_imageWidth(40)
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeBackward).ht_image(ht_image(100)).ht_size(CGSize(width: 40, height: 40)),
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullScreenPlayPause).ht_image(ht_image(185)).ht_selectImage(ht_image(186)).ht_size(CGSize(width: 44, height: 44)).ht_setSelected(player.var_isPlaying),
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeForward).ht_image(ht_image(103)).ht_size(CGSize(width: 40, height: 40))
             ])
 
         } else {
@@ -221,4 +222,5 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
 extension HTEnumControlType {
     
     static let htEnumControlTypeSubtitle = HTEnumControlType(18)
+    static let htEnumControlTypeGap = HTEnumControlType(19)
 }
