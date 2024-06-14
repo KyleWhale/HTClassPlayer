@@ -138,6 +138,12 @@ public class HTClassPlayerLayerView: UIView {
         var_timer = nil
     }
     
+    public func ht_startTimer() {
+        if var_playerItem?.status == .readyToPlay {
+            var_timer?.fireDate = Date()
+        }
+    }
+
     public func ht_pauseTimer() {
         if var_playerItem?.status == .readyToPlay {
             var_timer?.fireDate = Date.distantFuture
@@ -258,16 +264,13 @@ public class HTClassPlayerLayerView: UIView {
                     self.var_state = .htEnumPlayerStateBuffering
                 }
             }
-            if var_player.rate == 0.0 {
-                if var_player.error != nil {
-                    self.var_state = .htEnumPlayerStateError
+            if var_player.rate == 0.0 && var_player.error != nil {
+                self.var_state = .htEnumPlayerStateError
+            }
+            if let var_currentItem = var_player.currentItem {
+                if var_player.currentTime() >= var_currentItem.duration {
+                    ht_moviePlayDidEnd()
                     return
-                }
-                if let var_currentItem = var_player.currentItem {
-                    if var_player.currentTime() >= var_currentItem.duration {
-                        ht_moviePlayDidEnd()
-                        return
-                    }
                 }
             }
         }

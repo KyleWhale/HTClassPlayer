@@ -76,7 +76,7 @@ class HTClassPlayerProgressView: UIView {
         addSubview(var_slider)
         var_slider.snp.makeConstraints { make in
             make.height.equalTo(30)
-            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.left.equalTo(var_currentTimeLabel.snp.right).offset(10)
             make.right.equalTo(var_totalTimeLabel.snp.left).offset(-10)
         }

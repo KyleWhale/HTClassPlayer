@@ -118,13 +118,11 @@ public class HTClassPlayerControl: UIView {
             switch var_eventType {
             case .touchDown:
                 var_sliding = true
-                var_player.ht_pauseTimer()
                 // 关闭自动隐藏
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(ht_auto), object: nil)
                 break
             case .touchUpInside:
                 var_sliding = true
-                var_player.ht_pauseTimer()
                 let var_target = var_player.var_totalTime * Double(var_slider.value)
                 ht_seekToTime(var_target) { [weak self] in
                     guard let self = self else {return}
@@ -149,6 +147,7 @@ public class HTClassPlayerControl: UIView {
         }
         return var_view
     }()
+        
     lazy var var_progressAlert: HTClassPlayerProgressAlert = {
         let var_view = HTClassPlayerProgressAlert()
         var_view.ht_dismiss()
@@ -487,7 +486,6 @@ public class HTClassPlayerControl: UIView {
     // 横滑计算
     fileprivate func ht_horizontalMoved(_ var_value: CGFloat) {
         var_sliding = true
-        var_player.ht_pauseTimer()
         // 每次滑动需要叠加时间，通过一定的比例，使滑动一直处于统一水平
         let var_totalDuration = var_player.var_totalTime
         if var_totalDuration == 0 { return }
@@ -547,9 +545,11 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     public func ht_player(var_player: HTClassPlayerLayerView, var_playTimeDidChange var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
         
         if var_totalTime > 0, let var_view = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
-            var_view.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_currentTime))
+            if !var_sliding {
+                var_view.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_currentTime))
+                var_view.var_slider.value = Float(var_currentTime) / Float(var_totalTime)
+            }
             var_view.var_totalTimeLabel.text = ht_convertSecondsToHMS(Int(var_totalTime))
-            var_view.var_slider.value = Float(var_currentTime) / Float(var_totalTime)
         }
         var_delegate?.ht_playerControl?(var_playerControl: self, var_playTimeDidChange: var_currentTime, var_totalTime: var_totalTime)
     }
