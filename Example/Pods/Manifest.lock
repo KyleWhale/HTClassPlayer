@@ -1,5 +1,5 @@
 PODS:
-  - HTClassPlayer (0.0.4):
+  - HTClassPlayer (0.0.5):
     - Kingfisher
     - SnapKit
   - Kingfisher (7.11.0)
@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
     :path: "../../HTClassPlayer"
 
 SPEC CHECKSUMS:
-  HTClassPlayer: 1cfb0038f750a6390a0c08d0857c4886fe81542b
+  HTClassPlayer: 304cda354eae5572fc7d61299d3c1d4b1cb9b632
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 

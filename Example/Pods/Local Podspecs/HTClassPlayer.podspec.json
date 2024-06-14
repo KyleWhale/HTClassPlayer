@@ -1,6 +1,6 @@
 {
   "name": "HTClassPlayer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "summary": "A short description of HTClassPlayer.",
   "description": "HTClassPlayer",
   "homepage": "https://github.com/KyleWhale/HTClassPlayer.git",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/KyleWhale/HTClassPlayer.git",
-    "tag": "0.0.4"
+    "tag": "0.0.5"
   },
   "swift_versions": "5.0",
   "source_files": [
