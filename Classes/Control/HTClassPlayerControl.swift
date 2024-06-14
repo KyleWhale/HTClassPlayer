@@ -126,7 +126,6 @@ public class HTClassPlayerControl: UIView {
                 let var_target = var_player.var_totalTime * Double(var_slider.value)
                 ht_seekToTime(var_target) { [weak self] in
                     guard let self = self else {return}
-                    var_sliding = false
                     var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 0)
                 }
                 // 重置自动隐藏
@@ -324,7 +323,10 @@ public class HTClassPlayerControl: UIView {
     }
     // seekto
     public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
-        var_player.ht_seekToTime(var_time, var_completion: var_completion)
+        var_player.ht_seekToTime(var_time) { [weak self] in
+            self?.var_sliding = false
+            var_completion?()
+        }
     }
     // 按钮事件
     private func ht_didClickWith(_ var_model: HTClassPlayerControlModel) {
@@ -471,7 +473,6 @@ public class HTClassPlayerControl: UIView {
             case .htEnumHorizontal:
                 ht_seekToTime(self.var_sumTime) { [weak self] in
                     guard let self = self else {return}
-                    var_sliding = false
                     var_delegate?.ht_playerControl?(var_playerControl: self, var_sliderChangeEnd: var_currentTime, var_type: 1)
                 }
                 break
@@ -565,7 +566,7 @@ extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {
     public func ht_player(var_player: HTClassPlayerLayerView, var_playerStateDidChange var_state: HTEnumPlayerState) {
         if var_state == .htEnumPlayerStatePlayToTheEnd {
             if var_isAutoLoop {
-                var_player.ht_seekToTime(0) { [weak self] in
+                ht_seekToTime(0) { [weak self] in
                     self?.ht_play()
                 }
             }
