@@ -442,6 +442,7 @@ public class HTClassPlayerControl: UIView {
                 self.var_panDirection = HTEnumPanDirection.htEnumHorizontal
                 // 给sumTime初值
                 self.var_sumTime = var_player.var_currentTime
+                var_sliding = true
             } else {
                 self.var_panDirection = HTEnumPanDirection.htEnumVertical
                 if var_locationPoint.x > self.bounds.size.width / 2 {
@@ -485,7 +486,6 @@ public class HTClassPlayerControl: UIView {
     }
     // 横滑计算
     fileprivate func ht_horizontalMoved(_ var_value: CGFloat) {
-        var_sliding = true
         // 每次滑动需要叠加时间，通过一定的比例，使滑动一直处于统一水平
         let var_totalDuration = var_player.var_totalTime
         if var_totalDuration == 0 { return }

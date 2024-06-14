@@ -140,12 +140,14 @@ public class HTClassPlayerLayerView: UIView {
     
     public func ht_startTimer() {
         if var_playerItem?.status == .readyToPlay {
+            var_readyToPlay = true
             var_timer?.fireDate = Date()
         }
     }
 
     public func ht_pauseTimer() {
         if var_playerItem?.status == .readyToPlay {
+            var_readyToPlay = true
             var_timer?.fireDate = Date.distantFuture
         }
     }
@@ -191,12 +193,15 @@ public class HTClassPlayerLayerView: UIView {
     }
     
     // seekto
+    public var var_seekCompletion: (()->Void)?
     public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
         
         if var_time.isNaN {
+            var_completion?()
             return
         }
         if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+            var_readyToPlay = true
             var_isSeeking = true
             let draggedTime = CMTime(value: Int64(var_time), timescale: 1)
             self.var_player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { [weak self] (finished) in
@@ -205,8 +210,11 @@ public class HTClassPlayerLayerView: UIView {
                     var_completion?()
                 }
             })
-        } else {
+        } else if var_time != 0 {
+            self.var_seekCompletion = var_completion
             self.var_seekTime = var_time
+        } else {
+            var_completion?()
         }
     }
     
@@ -256,7 +264,7 @@ public class HTClassPlayerLayerView: UIView {
         
         if let var_player = var_player {
             if let var_playerItem = var_playerItem, var_includeLoading {
-                if var_readyToPlay && (var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull) {
+                if var_playerItem.status == .readyToPlay && (var_playerItem.isPlaybackLikelyToKeepUp || var_playerItem.isPlaybackBufferFull) {
                     self.var_state = .htEnumPlayerStateBufferFinished
                 } else if var_playerItem.status == .failed && self.var_state != .htEnumPlayerStateError {
                     self.var_state = .htEnumPlayerStateError
@@ -303,6 +311,8 @@ public class HTClassPlayerLayerView: UIView {
                             self.var_seekTime = 0
                             self.var_readyToPlay = true
                             self.var_state = .htEnumPlayerStateReadyToPlay
+                            self.var_seekCompletion?()
+                            self.var_seekCompletion = nil
                         }
                     } else {
                         self.var_readyToPlay = true
