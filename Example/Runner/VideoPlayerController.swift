@@ -222,5 +222,4 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
 extension HTEnumControlType {
     
     static let htEnumControlTypeSubtitle = HTEnumControlType(18)
-    static let htEnumControlTypeGap = HTEnumControlType(19)
 }

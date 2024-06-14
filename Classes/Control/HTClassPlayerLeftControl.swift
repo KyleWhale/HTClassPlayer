@@ -59,7 +59,11 @@ public class HTClassPlayerLeftControl: UIView {
                 }
             } else {
                 var_view.var_model = var_model
-                if let var_image = var_model.var_image, !var_image.isEmpty {
+                if var_model.var_customView != nil {
+                    var_view.snp.remakeConstraints { make in
+                        make.size.equalTo(var_model.var_size)
+                    }
+                } else if let var_image = var_model.var_image, !var_image.isEmpty {
                     var_view.snp.remakeConstraints { make in
                         make.size.equalTo(var_model.var_size)
                     }
