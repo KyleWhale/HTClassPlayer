@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010133622C2126A800AE2256 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010133612C2126A800AE2256 /* NavigationController.swift */; };
 		011D2C5E2C1AA0630033A8CB /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011D2C5D2C1AA0630033A8CB /* CustomView.swift */; };
 		011D2C632C1AEDDE0033A8CB /* 1646479031.95.movie_v1.14898.English.srt in Resources */ = {isa = PBXBuildFile; fileRef = 011D2C622C1AEDDE0033A8CB /* 1646479031.95.movie_v1.14898.English.srt */; };
 		01338D722C11AF060006D76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01338D712C11AF060006D76A /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		010133612C2126A800AE2256 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		011D2C5D2C1AA0630033A8CB /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		011D2C622C1AEDDE0033A8CB /* 1646479031.95.movie_v1.14898.English.srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 1646479031.95.movie_v1.14898.English.srt; sourceTree = "<group>"; };
 		01338D6E2C11AF060006D76A /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +73,7 @@
 			children = (
 				01338D712C11AF060006D76A /* AppDelegate.swift */,
 				01338D732C11AF060006D76A /* SceneDelegate.swift */,
+				010133612C2126A800AE2256 /* NavigationController.swift */,
 				01338D752C11AF060006D76A /* ViewController.swift */,
 				01338D852C11AF9D0006D76A /* VideoPlayerController.swift */,
 				011D2C5D2C1AA0630033A8CB /* CustomView.swift */,
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				011D2C5E2C1AA0630033A8CB /* CustomView.swift in Sources */,
+				010133622C2126A800AE2256 /* NavigationController.swift in Sources */,
 				01338D762C11AF060006D76A /* ViewController.swift in Sources */,
 				01338D722C11AF060006D76A /* AppDelegate.swift in Sources */,
 				01338D862C11AF9D0006D76A /* VideoPlayerController.swift in Sources */,

@@ -46,7 +46,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gop-RV-pY7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbf-zV-eyC" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fbf-zV-eyC" customClass="NavigationController" customModule="Runner" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mod-vF-ZGf">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>

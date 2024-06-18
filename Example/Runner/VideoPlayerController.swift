@@ -16,7 +16,8 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     """
     
     let player = HTClassPlayerControl()
-    
+    var var_isLock: Bool = false;
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -53,7 +54,15 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     
     func ht_resetControl(_ var_isFullscreen: Bool) {
         
-        if var_isFullscreen {
+        if var_isLock {
+            // 锁 限制横竖屏
+            player.var_leftControl.ht_reloadData([
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeLock).ht_image(ht_image(182)).ht_selectImage(ht_image(183)).ht_setSelected(true),
+            ])
+            player.var_topControl.ht_reloadData([])
+            player.var_centerControl.ht_reloadData([])
+            player.var_bottomControl.ht_reloadData([[]])
+        } else if var_isFullscreen {
             // 这里的model最好保存下来使用 用来切换状态 例如标题 ht_title() 字幕状态、播放状态、收藏状态等ht_setSelected() 如不想使用选中逻辑，也可直接切换图片ht_image()
             player.var_topControl.ht_reloadData([
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image(ht_image(39)),
@@ -121,6 +130,24 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
 
 extension VideoPlayerController {
     
+    func ht_setUpdateOrientations() {
+        if #available(iOS 16.0, *) {
+            setNeedsUpdateOfSupportedInterfaceOrientations()
+        } else {
+            UIViewController.attemptRotationToDeviceOrientation()
+        }
+    }
+    
+    // 是否支持自动转屏
+    override var shouldAutorotate: Bool {
+        return true
+    }
+
+    // 支持哪些屏幕方向
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return var_isLock ? [.landscapeLeft, .landscapeRight] : .allButUpsideDown
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransition(to: size, with: coordinator)
@@ -190,16 +217,12 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
             // 锁
             if var_model.var_isSelected {
                 // 解锁
-                ht_resetControl(true)
+                var_isLock = false
             } else {
-                // 锁 限制横竖屏
-                player.var_leftControl.ht_reloadData([
-                    HTClassPlayerControlModel().ht_type(.htEnumControlTypeLock).ht_image(ht_image(182)).ht_selectImage(ht_image(183)).ht_setSelected(true),
-                ])
-                player.var_topControl.ht_reloadData([])
-                player.var_centerControl.ht_reloadData([])
-                player.var_bottomControl.ht_reloadData([[]])
+                var_isLock = true
             }
+            ht_resetControl(true)
+            ht_setUpdateOrientations()
         }
         if var_model.var_type == .htEnumControlTypeNextEpisode {
             // 下一集
