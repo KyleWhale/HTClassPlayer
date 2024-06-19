@@ -83,4 +83,12 @@ open class HTClassControlView: UIView {
             var_imageView.isHidden = true
         }
     }
+    
+    var var_touchAreaInsets: UIEdgeInsets = UIEdgeInsets(top: -12, left: -12, bottom: -12, right: -12) // 默认扩大区域
+
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let var_relativeFrame = self.bounds
+        let var_hitFrame = var_relativeFrame.inset(by: var_touchAreaInsets)
+        return var_hitFrame.contains(point)
+    }
 }
