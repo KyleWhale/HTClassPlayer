@@ -336,7 +336,6 @@ public class HTClassPlayerControl: UIView {
     public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
         var_player.ht_seekToTime(var_time) { [weak self] in
             self?.var_sliding = false
-            self?.var_sumTime = 0
             var_completion?()
         }
     }
