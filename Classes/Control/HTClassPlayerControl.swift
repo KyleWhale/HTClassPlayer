@@ -160,7 +160,7 @@ public class HTClassPlayerControl: UIView {
         
     lazy var var_progressAlert: HTClassPlayerProgressAlert = {
         let var_view = HTClassPlayerProgressAlert()
-        var_view.ht_dismiss()
+        var_view.isHidden = true
         return var_view
     }()
     // loading

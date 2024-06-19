@@ -7,9 +7,9 @@
 
 import Foundation
 
-open class HTClassPlayerProgressAlert: UIView {
+class HTClassPlayerProgressAlert: UIView {
     
-    public lazy var var_progressLabel: UILabel = {
+    lazy var var_progressLabel: UILabel = {
         let var_view = UILabel()
         var_view.textColor = .white
         var_view.font = .systemFont(ofSize: 14, weight: .regular)
@@ -18,17 +18,17 @@ open class HTClassPlayerProgressAlert: UIView {
         return var_view
     }()
     
-    override public init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         ht_setupViews()
     }
     
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
         ht_setupViews()
     }
     
-    open func ht_setupViews() {
+    func ht_setupViews() {
         
         backgroundColor = UIColor.black.withAlphaComponent(0.4)
         layer.masksToBounds = true
@@ -39,12 +39,12 @@ open class HTClassPlayerProgressAlert: UIView {
         }
     }
     
-    open func ht_show(var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
+    func ht_show(var_currentTime: TimeInterval, var_totalTime: TimeInterval) {
         isHidden = false
         var_progressLabel.text = "\(ht_convertSecondsToHMS(Int(var_currentTime)))/\(ht_convertSecondsToHMS(Int(var_totalTime)))"
     }
     
-    open func ht_dismiss() {
+    func ht_dismiss() {
         isHidden = true
     }
 }

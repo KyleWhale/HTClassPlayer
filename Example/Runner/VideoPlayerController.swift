@@ -12,7 +12,7 @@ import HTClassPlayer
 class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     
     let url = """
-    https://autoeq.top/tlvsn/3148e0d49c2b71cd0f932ca47dbdf979/3148e0d49c2b71cd0f932ca47dbdf979.m3u8?expire=1717661030&auth=20119aa62270f36055349a63762b533b52222e049980bc2e3341c7ab4336c505&xaid=43C637DE-5FAB-4A17-9BE6-E90D306B1D68&p1=132432,347,103.152.113.155
+    https://autoeq.top/anime_dub/5f96f2be34ff0c1efc8d5542153e68fe/5f96f2be34ff0c1efc8d5542153e68fe.m3u8?expire=1718791302&auth=9257891a48274f2bb80933817cb4edcae90860ecc7b9efdc424b28bb020725a6&xaid=7DA24D79-9389-441B-BC9A-E0DB8EB87F15&p1=61804,96,103.152.113.156
     """
     
     let player = HTClassPlayerControl()
