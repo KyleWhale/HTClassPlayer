@@ -532,6 +532,7 @@ public class HTClassPlayerControl: UIView {
         for var_subview in var_volumeView.subviews {
             if let var_slider = var_subview as? UISlider {
                 self.var_volumeSlider = var_slider
+                break
             }
         }
     }

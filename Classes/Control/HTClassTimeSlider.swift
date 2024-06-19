@@ -12,7 +12,7 @@ public class HTClassTimeSlider: UISlider {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setThumbImage(ht_createThumbImage(size: CGSizeMake(15, 15)), for: .normal)
+        setThumbImage(ht_createThumbImage(var_size: CGSizeMake(15, 15)), for: .normal)
     }
     
     required init?(coder: NSCoder) {
@@ -36,12 +36,12 @@ public class HTClassTimeSlider: UISlider {
         return var_newRect
     }
     
-    func ht_createThumbImage(size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-        let context = UIGraphicsGetCurrentContext()
-        let var_rect = CGRect(origin: .zero, size: size)
-        context?.setFillColor(UIColor.white.cgColor)
-        context?.fillEllipse(in: var_rect)
+    func ht_createThumbImage(var_size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(var_size, false, UIScreen.main.scale)
+        let var_context = UIGraphicsGetCurrentContext()
+        let var_rect = CGRect(origin: .zero, size: var_size)
+        var_context?.setFillColor(UIColor.white.cgColor)
+        var_context?.fillEllipse(in: var_rect)
         let var_image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return var_image
