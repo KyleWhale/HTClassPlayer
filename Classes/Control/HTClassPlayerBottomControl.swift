@@ -9,6 +9,8 @@ import Foundation
 
 public class HTClassPlayerBottomControl: UIView {
     
+    public let var_gradientLayer = CAGradientLayer()
+
     var var_click: ((HTClassPlayerControlModel?) -> Void)?
     var var_sliderChange: ((UISlider, UIControl.Event) -> Void)?
 
@@ -25,11 +27,39 @@ public class HTClassPlayerBottomControl: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         ht_setupViews()
+        ht_setupGradientLayer()
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         ht_setupViews()
+        ht_setupGradientLayer()
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        var_gradientLayer.frame = bounds
+        
+        if UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height {
+            var_stackView.snp.remakeConstraints { (make) in
+                make.top.bottom.equalToSuperview()
+                make.left.right.equalToSuperview().inset(18)
+            }
+        } else {
+            var_stackView.snp.remakeConstraints { (make) in
+                make.top.bottom.equalToSuperview()
+                make.left.right.equalToSuperview().inset(8)
+            }
+        }
+    }
+    
+    // 添加渐变色
+    func ht_setupGradientLayer() {
+        
+        var_gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.8).cgColor]
+        var_gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        var_gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        layer.insertSublayer(var_gradientLayer, at: 0)
     }
     
     func ht_setupViews() {

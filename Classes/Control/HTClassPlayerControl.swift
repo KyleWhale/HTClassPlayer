@@ -243,16 +243,8 @@ public class HTClassPlayerControl: UIView {
                 make.left.equalTo(safeAreaLayoutGuide.snp.left)
                 make.centerY.equalToSuperview()
             }
-            var_topControl.snp.remakeConstraints { make in
-                make.top.equalTo(10)
-                make.left.right.equalToSuperview().inset(10)
-            }
             var_centerControl.snp.remakeConstraints { make in
                 make.center.equalToSuperview()
-            }
-            var_bottomControl.snp.remakeConstraints { make in
-                make.bottom.equalToSuperview()
-                make.left.right.equalToSuperview().inset(10)
             }
             var_progressAlert.snp.remakeConstraints { make in
                 make.centerX.equalToSuperview()
@@ -264,14 +256,8 @@ public class HTClassPlayerControl: UIView {
                 make.left.equalToSuperview()
                 make.centerY.equalToSuperview()
             }
-            var_topControl.snp.remakeConstraints { make in
-                make.top.left.right.equalToSuperview()
-            }
             var_centerControl.snp.remakeConstraints { make in
                 make.center.equalToSuperview()
-            }
-            var_bottomControl.snp.remakeConstraints { make in
-                make.bottom.left.right.equalToSuperview()
             }
             var_progressAlert.snp.remakeConstraints { make in
                 make.center.equalToSuperview()
@@ -535,12 +521,14 @@ public class HTClassPlayerControl: UIView {
             }
         }
     }
+    // 增加音量
     open func ht_addVolume(_ var_step: Float = 0.1) {
         self.var_volumeSlider?.value += var_step
     }
+    // 减小音量
     open func ht_reduceVolume(_ var_step: Float = 0.1) {
         self.var_volumeSlider?.value -= var_step
-    }
+    }    
     // 释放
     deinit {
         print("播放控制层释放了")
