@@ -120,11 +120,11 @@ public class HTClassPlayerLayerView: UIView {
     // 重置播放状态
     public func ht_resetPlayer() {
         
+        var_seekTime = 0
         var_playEnd = false
-        var_isPlaying = false
         var_readyToPlay = false
         var_isBuffering = false
-        var_seekTime = 0
+        var_isPlaying = false
         ht_pause()
         ht_removeObserverIfNeeded()
         var_currentURL = nil
@@ -200,7 +200,10 @@ public class HTClassPlayerLayerView: UIView {
             var_completion?()
             return
         }
-        if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+        if var_time == 0 {
+            self.var_seekTime = 0
+            var_completion?()
+        } else if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
             var_readyToPlay = true
             var_isSeeking = true
             let draggedTime = CMTime(value: Int64(var_time), timescale: 1)
@@ -210,11 +213,9 @@ public class HTClassPlayerLayerView: UIView {
                     var_completion?()
                 }
             })
-        } else if var_time != 0 {
+        } else {
             self.var_seekCompletion = var_completion
             self.var_seekTime = var_time
-        } else {
-            var_completion?()
         }
     }
     
@@ -236,7 +237,6 @@ public class HTClassPlayerLayerView: UIView {
         ht_playerItemAddObserver(ht_AsciiString("loadedTimeRanges"))
         ht_playerItemAddObserver(ht_AsciiString("playbackBufferEmpty"))
         ht_playerItemAddObserver(ht_AsciiString("playbackLikelyToKeepUp"))
-        NotificationCenter.default.addObserver(self, selector: #selector(ht_moviePlayDidEnd), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
     private func ht_setupTimer() {

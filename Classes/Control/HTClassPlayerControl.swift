@@ -26,6 +26,8 @@ enum HTEnumPanDirection: Int {
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_loadedTimeDidChange var_loadedDuration: TimeInterval, var_totalTime: TimeInterval)
     // 滑动结束 var_type 0 = slider 1 = 滑动手势
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_sliderChangeEnd var_currentTime: TimeInterval, var_type: Int)
+    // 单双击手势 已经处理了播放暂停和显隐控制层 var_tapCount = 1 | 2
+    @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_tapCount: Int)
 }
 
 public class HTClassPlayerControl: UIView {
@@ -46,11 +48,19 @@ public class HTClassPlayerControl: UIView {
             return var_player.var_isPlaying
         }
     }
+    // 当前时长
     public var var_currentTime: TimeInterval {
         get {
             return var_player.var_currentTime
         }
     }
+    // 总时长
+    public var var_totalTime: TimeInterval {
+        get {
+            return var_player.var_totalTime
+        }
+    }
+    // 正在改变进度
     public var var_isSeeking: Bool {
         get {
             return var_player.var_isSeeking
@@ -135,6 +145,7 @@ public class HTClassPlayerControl: UIView {
                 }
                 break
             case .valueChanged:
+                var_sliding = true
                 let var_target = var_player.var_totalTime * Double(var_slider.value)
                 if let var_progressView = ht_subviewWith(.htEnumControlTypeProgresss) as? HTClassPlayerProgressView {
                     var_progressView.var_currentTimeLabel.text = ht_convertSecondsToHMS(Int(var_target))
@@ -325,6 +336,7 @@ public class HTClassPlayerControl: UIView {
     public func ht_seekToTime(_ var_time: TimeInterval, var_completion: (()->Void)? = nil) {
         var_player.ht_seekToTime(var_time) { [weak self] in
             self?.var_sliding = false
+            self?.var_sumTime = 0
             var_completion?()
         }
     }
@@ -419,6 +431,7 @@ public class HTClassPlayerControl: UIView {
         if var_showControl {
             self.perform(#selector(ht_auto), with: nil, afterDelay: 5.0)
         }
+        self.var_delegate?.ht_playerControl?(var_playerControl: self, var_tapCount: 1)
     }
     // 双击手势
     @objc private func ht_doubleTapAction() {
@@ -428,6 +441,7 @@ public class HTClassPlayerControl: UIView {
         } else {
             ht_play()
         }
+        self.var_delegate?.ht_playerControl?(var_playerControl: self, var_tapCount: 2)
     }
     // 滑动手势
     @objc private func ht_handlePanGesture(_ var_gesture: UIPanGestureRecognizer) {
@@ -443,7 +457,9 @@ public class HTClassPlayerControl: UIView {
             if x > y {
                 self.var_panDirection = HTEnumPanDirection.htEnumHorizontal
                 // 给sumTime初值
-                self.var_sumTime = var_player.var_currentTime
+                if !var_sliding {
+                    self.var_sumTime = var_player.var_currentTime
+                }
                 var_sliding = true
             } else {
                 self.var_panDirection = HTEnumPanDirection.htEnumVertical
@@ -490,6 +506,7 @@ public class HTClassPlayerControl: UIView {
         // 每次滑动需要叠加时间，通过一定的比例，使滑动一直处于统一水平
         let var_totalDuration = var_player.var_totalTime
         if var_totalDuration == 0 { return }
+        self.var_sliding = true
         self.var_sumTime = self.var_sumTime + TimeInterval(var_value) / 100.0 * (TimeInterval(var_totalDuration)/400)
         if (self.var_sumTime >= var_totalDuration) { self.var_sumTime = var_totalDuration }
         if (self.var_sumTime <= 0) { self.var_sumTime = 0 }

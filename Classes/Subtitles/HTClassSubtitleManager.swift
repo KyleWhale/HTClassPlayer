@@ -9,6 +9,8 @@ import Foundation
 
 public class HTClassSubtitleManager {
     
+    static var var_subtitleIndex: Int = 0
+    
     // srt文件地址
     static public func ht_parseSubtitleFile(_ var_path: URL?, _ var_completion: (([[String: Any]]) -> Void)?) {
         
@@ -68,6 +70,48 @@ public class HTClassSubtitleManager {
             print("error -----> \(error)")
             var_completion?([])
         }
+    }
+    
+    static public func ht_searchSubtitlesWithArray(_ var_subtitleArray: [[String: Any]]?, _ var_time: TimeInterval) -> String? {
+        
+        guard let var_subtitleArray = var_subtitleArray, !var_subtitleArray.isEmpty else { return nil}
+        if var_subtitleArray.count <= var_subtitleIndex {
+            var_subtitleIndex = 0
+        }
+        // 重置索引，如果时间小于当前索引的字幕开始时间
+        if var_time < (var_subtitleArray[var_subtitleIndex][ht_AsciiString("begin")] as? TimeInterval ?? 0.0) {
+            if var_subtitleIndex == 0 {
+                // 在第一条字幕之前的时间
+                return nil
+            }
+            // 重置索引 从0开始查找
+            var_subtitleIndex = 0
+        }
+        for var_index in var_subtitleIndex ..< var_subtitleArray.count {
+            
+            let var_subtitleDict = var_subtitleArray[var_index]
+            if let var_fromTime = var_subtitleDict[ht_AsciiString("begin")] as? TimeInterval,
+               let var_toTime = var_subtitleDict[ht_AsciiString("end")] as? TimeInterval,
+               let var_text = var_subtitleDict[ht_AsciiString("subtitle")] as? String {
+                
+                if var_time >= var_fromTime && var_time <= var_toTime {
+                    /// 找到字幕了
+                    var_subtitleIndex = var_index
+                    return var_text.trimmingCharacters(in: .whitespacesAndNewlines)
+                } else {
+                    if var_subtitleArray.count > (var_index + 1) {
+                        let var_nextSubtitleDict = var_subtitleArray[var_index + 1]
+                        if let var_beginTime = var_nextSubtitleDict[ht_AsciiString("begin")] as? TimeInterval {
+                            // 在两个字幕中间的时间
+                            if var_time > var_toTime && var_time < var_beginTime {
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return nil
     }
     
     static func ht_timeStringToSeconds(_ var_input: String) -> Double? {

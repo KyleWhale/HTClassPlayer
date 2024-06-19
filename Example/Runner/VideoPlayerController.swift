@@ -17,6 +17,11 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     
     let player = HTClassPlayerControl()
     var var_isLock: Bool = false;
+    
+    // 字幕按钮
+    lazy var var_subtitleModel: HTClassPlayerControlModel = {
+        return HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image(ht_image(153)).ht_selectImage(ht_image(154))
+    }()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,6 +55,15 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
         if let var_videoURL = URL(string: url) {
             player.ht_playVideo(var_videoURL)
         }
+        
+        ht_subtitleStatus(enable: true, selected: false)
+    }
+    
+    // 模拟修改字幕状态
+    func ht_subtitleStatus(enable var_enable: Bool, selected var_selected: Bool) {
+        
+        var_subtitleModel.ht_image(var_enable ? ht_image(155) : ht_image(153))
+        var_subtitleModel.ht_setSelected(var_selected)
     }
     
     func ht_resetControl(_ var_isFullscreen: Bool) {
@@ -70,7 +84,7 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image(ht_image(177)),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image(ht_image(124)),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image(ht_image(155)),
+                var_subtitleModel,
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image(ht_image(176)),
             ])
             player.var_bottomControl.ht_reloadData([
@@ -101,7 +115,7 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image(ht_image(177)),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image(ht_image(124)),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image(ht_image(155)),
+                var_subtitleModel,
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image(ht_image(176)),
             ])
             player.var_bottomControl.ht_reloadData([
@@ -237,6 +251,10 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
         if var_model.var_type == .htEnumControlTypeForward {
             // 前进10s
             player.ht_seekToTime(player.var_player.var_currentTime + 10)
+        }
+        if var_model.var_type == .htEnumControlTypeCC {
+            
+            ht_subtitleStatus(enable: true, selected: !var_model.var_isSelected)
         }
     }
 }
