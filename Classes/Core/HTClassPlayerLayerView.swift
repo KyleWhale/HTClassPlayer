@@ -277,7 +277,9 @@ public class HTClassPlayerLayerView: UIView {
                 self.var_state = .htEnumPlayerStateError
             }
             if let var_currentItem = var_player.currentItem {
-                if var_player.currentTime() >= var_currentItem.duration {
+                let var_currentTime = CMTimeGetSeconds(var_player.currentTime())
+                let var_totalTime = TimeInterval(var_currentItem.duration.value) / TimeInterval(var_currentItem.duration.timescale)
+                if var_currentTime >= (var_totalTime - 0.1) {
                     ht_moviePlayDidEnd()
                     return
                 }
