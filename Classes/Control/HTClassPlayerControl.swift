@@ -289,6 +289,7 @@ public class HTClassPlayerControl: UIView {
     }
     // 停止
     public func ht_stop() {
+        ht_hiddenLoading()
         var_player.ht_stop()
     }
     // 显示菊花

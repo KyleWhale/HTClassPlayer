@@ -200,10 +200,7 @@ public class HTClassPlayerLayerView: UIView {
             var_completion?()
             return
         }
-        if var_time == 0 {
-            self.var_seekTime = 0
-            var_completion?()
-        } else if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
+        if self.var_player?.currentItem?.status == AVPlayerItem.Status.readyToPlay {
             var_readyToPlay = true
             var_isSeeking = true
             let draggedTime = CMTime(value: Int64(var_time), timescale: 1)
@@ -214,7 +211,11 @@ public class HTClassPlayerLayerView: UIView {
                 }
             })
         } else {
-            self.var_seekCompletion = var_completion
+            if var_time != 0 {
+                self.var_seekCompletion = var_completion
+            } else {
+                var_completion?()
+            }
             self.var_seekTime = var_time
         }
     }
