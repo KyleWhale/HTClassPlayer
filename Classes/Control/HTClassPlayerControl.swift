@@ -28,6 +28,8 @@ enum HTEnumPanDirection: Int {
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_sliderChangeEnd var_currentTime: TimeInterval, var_type: Int)
     // 单双击手势 已经处理了播放暂停和显隐控制层 var_tapCount = 1 | 2
     @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_tapCount: Int)
+    // 控制层显隐
+    @objc optional func ht_playerControl(var_playerControl: HTClassPlayerControl, var_showControl: Bool)
 }
 
 public class HTClassPlayerControl: UIView {
@@ -67,7 +69,11 @@ public class HTClassPlayerControl: UIView {
         }
     }
     // 是否显示控制层
-    public var var_showControl: Bool = false
+    public var var_showControl: Bool = false {
+        didSet {
+            self.var_delegate?.ht_playerControl?(var_playerControl: self, var_showControl: var_showControl)
+        }
+    }
     // 标记滑动中 滑块或横滑
     private var var_sliding: Bool = false
     // 播放器
