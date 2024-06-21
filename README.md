@@ -1,6 +1,6 @@
 # HTClassPlayer
 
-`HTClassPlayer` 是一个私有的的视频播放器控件，支持自定义控制台
+`HTClassPlayer` 是一个私有的视频播放器控件，支持自定义控制台
 
 ## 功能概述
 
@@ -100,8 +100,22 @@ func toggleFullscreen() {
 #### 切换控制按钮状态
 swift
 ```
-func toggleSubtitles(selected: Bool) {
-    subtitleModel.ht_setSelected(selected)
+let subtitleModel = HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image("无字幕").ht_selectImage("开字幕"),
+```
+
+```
+if haveSubtitle {
+    subtitleModel.ht_image("有字幕")
+} else {
+    subtitleModel.ht_image("无字幕")
+}
+```
+
+```
+if openSubtitle {
+    subtitleModel.ht_setSelected(true)
+} else {
+    subtitleModel.ht_setSelected(false)
 }
 ```
 
@@ -120,13 +134,13 @@ func resetControlLayout(isFullscreen: Bool) {
     } else if isFullscreen {
         // 全屏模式
         player.var_topControl.ht_reloadData([
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image(ht_image(39)),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeTitle).ht_title("Godzilla x Kong: The New Empire"),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image("返回"),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeTitle).ht_title("标题"),
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image(ht_image(177)),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image(ht_image(124)),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image("投屏"),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image("分享"),
             subtitleModel,
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image(ht_image(176))
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image("收藏")
         ])
         // 二维数组，用于缺分横竖屏不同的UI样式
         player.var_bottomControl.ht_reloadData([
@@ -134,41 +148,40 @@ func resetControlLayout(isFullscreen: Bool) {
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeProgress)
             ],
             [
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image(ht_image(180)).ht_selectImage(ht_image(181)).ht_setSelected(player.var_isPlaying),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeNextEpisode).ht_image(ht_image(179)),
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image("播放").ht_selectImage("暂停").ht_setSelected(player.var_isPlaying),
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeNextEpisode).ht_image("下一集"),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeSubtitle).ht_customView(CustomView()).ht_size(CGSize(width: 120, height: 22)).ht_title("abcdefghijklmn"),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeEpisodes).ht_title("Episode")
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeEpisodes).ht_title("选集")
             ]
         ])
         player.var_leftControl.ht_reloadData([
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeLock).ht_image(ht_image(182)).ht_selectImage(ht_image(183)),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeRemoveAd).ht_image(ht_image(184))
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeLock).ht_image("未锁").ht_selectImage("已锁"),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeRemoveAd).ht_image("移除广告")
         ])
         player.var_centerControl.ht_reloadData([
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBackward).ht_image(ht_image(100)).ht_size(CGSize(width: 40, height: 40)),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullScreenPlayPause).ht_image(ht_image(185)).ht_selectImage(ht_image(186)).ht_size(CGSize(width: 44, height: 44)).ht_setSelected(player.var_isPlaying),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeForward).ht_image(ht_image(103)).ht_size(CGSize(width: 40, height: 40))
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBackward).ht_image("-10s").ht_size(CGSize(width: 40, height: 40)),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullScreenPlayPause).ht_image("播放").ht_selectImage("暂停").ht_size(CGSize(width: 44, height: 44)).ht_setSelected(player.var_isPlaying),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeForward).ht_image("+10s").ht_size(CGSize(width: 40, height: 40))
         ])
     } else {
         // 非全屏模式
         player.var_topControl.ht_reloadData([
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image(ht_image(39)),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image("返回"),
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image(ht_image(177)),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image(ht_image(124)),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image("投屏"),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image("分享"),
             subtitleModel,
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image(ht_image(176))
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image("收藏")
         ])
         player.var_bottomControl.ht_reloadData([
             [
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image(ht_image(180)).ht_selectImage(ht_image(181)).ht_setSelected(player.var_isPlaying),
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image("播放").ht_selectImage("暂停").ht_setSelected(player.var_isPlaying),
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeProgress),
-                HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullscreen).ht_image(ht_image(83))
+                HTClassPlayerControlModel().ht_type(.htEnumControlTypeFullscreen).ht_image("全屏")
             ]
         ])
         player.var_leftControl.ht_reloadData([
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeRemoveAd).ht_image(ht_image(184))
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeRemoveAd).ht_image("移除广告")
         ])
         player.var_centerControl.ht_reloadData([])
     }
