@@ -6,7 +6,8 @@
 
 - `HTClassPlayerControl` 播放器+控制层
 - `HTClassPlayerControl.var_leftControl` 左侧控制层，Example中使用了Lock和removeAd
-- `HTClassPlayerControl.var_topControl` 顶部控制层，包括  返回、标题、分享、收藏、字幕、投屏等
+- `HTClassPlayerControl.var_rightControl` 右侧控制层，目前未使用
+- `HTClassPlayerControl.var_topControl` 顶部控制层，包括 返回、标题、分享、收藏、字幕、投屏等
 - `HTClassPlayerControl.var_centerControl` 中间控制层，用于 横屏时显示调整进度和播放暂停
 - `HTClassPlayerControl.var_bottomControl` 和其余不同的是，它使用了一个二维数组进行布局，区分竖屏和横屏时的布局样式 包括播放暂停、进度、下一集等
 

@@ -118,6 +118,18 @@ public class HTClassPlayerControl: UIView {
         }
         return var_view
     }()
+    // 右侧控制层
+    public lazy var var_rightControl: HTClassPlayerRightControl = {
+        let var_view = HTClassPlayerRightControl()
+        var_view.alpha = 0
+        var_view.var_click = { [weak self] var_model in
+            guard let self = self else {return}
+            if let var_model = var_model {
+                self.ht_didClickWith(var_model)
+            }
+        }
+        return var_view
+    }()
     // 底部控制层
     public lazy var var_bottomControl: HTClassPlayerBottomControl = {
         let var_view = HTClassPlayerBottomControl()
@@ -213,6 +225,12 @@ public class HTClassPlayerControl: UIView {
             make.centerY.equalToSuperview()
         }
         
+        self.addSubview(var_rightControl)
+        var_rightControl.snp.makeConstraints { make in
+            make.right.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
         self.addSubview(var_topControl)
         var_topControl.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
@@ -249,6 +267,10 @@ public class HTClassPlayerControl: UIView {
                 make.left.equalTo(safeAreaLayoutGuide.snp.left)
                 make.centerY.equalToSuperview()
             }
+            var_rightControl.snp.remakeConstraints { make in
+                make.right.equalTo(safeAreaLayoutGuide.snp.right)
+                make.centerY.equalToSuperview()
+            }
             var_centerControl.snp.remakeConstraints { make in
                 make.center.equalToSuperview()
             }
@@ -260,6 +282,10 @@ public class HTClassPlayerControl: UIView {
         } else {
             var_leftControl.snp.remakeConstraints { make in
                 make.left.equalToSuperview()
+                make.centerY.equalToSuperview()
+            }
+            var_rightControl.snp.remakeConstraints { make in
+                make.right.equalToSuperview()
                 make.centerY.equalToSuperview()
             }
             var_centerControl.snp.remakeConstraints { make in
@@ -355,6 +381,7 @@ public class HTClassPlayerControl: UIView {
             guard let self = self else {return}
             self.var_topControl.alpha = abs(self.var_topControl.alpha - 1)
             self.var_leftControl.alpha = abs(self.var_leftControl.alpha - 1)
+            self.var_rightControl.alpha = abs(self.var_rightControl.alpha - 1)
             self.var_centerControl.alpha = abs(self.var_centerControl.alpha - 1)
             self.var_bottomControl.alpha = abs(self.var_bottomControl.alpha - 1)
         } completion: { [weak self] var_completion in
@@ -390,6 +417,14 @@ public class HTClassPlayerControl: UIView {
             }
         }
         for var_view in self.var_centerControl.var_subviews {
+            if let var_view = var_view as? HTClassControlView, var_view.var_model?.var_type == var_type {
+                return var_view
+            }
+            if let var_view = var_view as? HTClassPlayerProgressView, var_type == .htEnumControlTypeProgresss {
+                return var_view
+            }
+        }
+        for var_view in self.var_rightControl.var_subviews {
             if let var_view = var_view as? HTClassControlView, var_view.var_model?.var_type == var_type {
                 return var_view
             }
