@@ -73,12 +73,32 @@ open class HTClassControlView: UIView {
         } else {
             var_titleLabel.isHidden = true
         }
-        if !var_model.var_isSelected, let var_image = var_model.var_image, !var_image.isEmpty {
-            var_imageView.isHidden = false
-            var_imageView.kf.setImage(with: URL(string: var_image))
-        } else if var_model.var_isSelected, let var_selectImage = var_model.var_selectImage, !var_selectImage.isEmpty {
-            var_imageView.isHidden = false
-            var_imageView.kf.setImage(with: URL(string: var_selectImage))
+        if !var_model.var_isSelected, let var_image = var_model.var_image {
+            if let var_image = var_image as? UIImage {
+                var_imageView.isHidden = false
+                var_imageView.image = var_image
+            } else if let var_image = var_image as? String {
+                var_imageView.isHidden = false
+                var_imageView.kf.setImage(with: URL(string: var_image))
+            } else if let var_image = var_image as? URL {
+                var_imageView.isHidden = false
+                var_imageView.kf.setImage(with: var_image)
+            } else {
+                var_imageView.isHidden = true
+            }
+        } else if var_model.var_isSelected, let var_selectImage = var_model.var_selectImage {
+            if let var_image = var_selectImage as? UIImage {
+                var_imageView.isHidden = false
+                var_imageView.image = var_image
+            } else if let var_image = var_selectImage as? String {
+                var_imageView.isHidden = false
+                var_imageView.kf.setImage(with: URL(string: var_image))
+            } else if let var_image = var_selectImage as? URL {
+                var_imageView.isHidden = false
+                var_imageView.kf.setImage(with: var_image)
+            } else {
+                var_imageView.isHidden = true
+            }
         } else {
             var_imageView.isHidden = true
         }

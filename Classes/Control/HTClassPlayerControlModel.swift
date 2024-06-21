@@ -44,16 +44,16 @@ public struct HTEnumControlType: Equatable {
         var_updateValue?()
         return self
     }
-    // 图片
+    // 图片 支持String UIImage URL
     @discardableResult
-    public func ht_image(_ var_string: String) -> Self {
+    public func ht_image(_ var_string: Any) -> Self {
         self.var_image = var_string
         var_updateValue?()
         return self
     }
-    // 图片选中 使用ht_setSelected切换
+    // 图片选中 支持String UIImage URL 使用ht_setSelected切换
     @discardableResult
-    public func ht_selectImage(_ var_selectImage: String) -> Self {
+    public func ht_selectImage(_ var_selectImage: Any) -> Self {
         self.var_selectImage = var_selectImage
         var_updateValue?()
         return self
@@ -85,8 +85,8 @@ public struct HTEnumControlType: Equatable {
     }
     
     public var var_title: String? //标题
-    public var var_image: String? //图片地址
-    public var var_selectImage: String? //图片地址 给播放暂停使用的
+    public var var_image: Any? //图片
+    public var var_selectImage: Any? //图片
     public var var_isSelected: Bool = false
     public var var_type: HTEnumControlType = .htEnumControlTypeSpacer
     public var var_size: CGSize = CGSize(width: 22, height: 22)

@@ -11,9 +11,7 @@ import HTClassPlayer
 
 class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
     
-    let url = """
-    https://autoeq.top/anime_dub/5f96f2be34ff0c1efc8d5542153e68fe/5f96f2be34ff0c1efc8d5542153e68fe.m3u8?expire=1718791302&auth=9257891a48274f2bb80933817cb4edcae90860ecc7b9efdc424b28bb020725a6&xaid=7DA24D79-9389-441B-BC9A-E0DB8EB87F15&p1=61804,96,103.152.113.156
-    """
+    let url = "https://highlight-video.cdn.bcebos.com/video/6s/160b95c0-1faa-11ef-8027-6c92bf5b40f4.mp4"
     
     let player = HTClassPlayerControl()
     var var_isLock: Bool = false;
@@ -240,7 +238,7 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
         }
         if var_model.var_type == .htEnumControlTypeNextEpisode {
             // 下一集
-            if let var_videoURL = URL(string: "https://highlight-video.cdn.bcebos.com/video/6s/160b95c0-1faa-11ef-8027-6c92bf5b40f4.mp4") {
+            if let var_videoURL = URL(string: url) {
                 player.ht_playVideo(var_videoURL)
             }
         }
