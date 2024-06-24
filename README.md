@@ -11,8 +11,8 @@
 - `HTClassPlayerControl.var_centerControl` 中间控制层，用于 横屏时显示调整进度和播放暂停
 - `HTClassPlayerControl.var_bottomControl` 和其余不同的是，它使用了一个二维数组进行布局，区分竖屏和横屏时的布局样式 包括播放暂停、进度、下一集等
 
-![竖屏布局](images/portrait.png)
-![横屏布局](images/landscape.png)
+![竖屏布局](Images/portrait.png)
+![横屏布局](Images/landscape.png)
 
 ## `HTClassPlayerControlDelegate`（可选实现）
 ```
