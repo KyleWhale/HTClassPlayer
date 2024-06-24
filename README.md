@@ -255,4 +255,42 @@ func ht_playerControl(var_playerControl: HTClassPlayerControl, var_didClickWith 
         ht_subtitleStatus(enable: true, selected: !var_model.var_isSelected)
     }
 }
+
+func ht_setUpdateOrientations() {
+    if #available(iOS 16.0, *) {
+        setNeedsUpdateOfSupportedInterfaceOrientations()
+    } else {
+        UIViewController.attemptRotationToDeviceOrientation()
+    }
+}
+
+// 是否支持自动转屏
+override var shouldAutorotate: Bool {
+    return true
+}
+
+// 支持哪些屏幕方向
+override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return var_isLock ? [.landscapeLeft, .landscapeRight] : .allButUpsideDown
+}
+
+// 横竖屏切换UI
+override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+    
+    super.viewWillTransition(to: size, with: coordinator)
+    if size.width > size.height {
+        ht_resetControl(true)
+        self.player.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    } else {
+        ht_resetControl(false)
+        self.player.snp.remakeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(self.view.snp.width).multipliedBy(9.0 / 16.0)
+        }
+    }
+}
+
 ```
