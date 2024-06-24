@@ -78,53 +78,7 @@ if isFullScreen {
         make.height.equalTo(self.view.snp.width).multipliedBy(9.0 / 16.0)
     }
 }
-```
 
-#### 播放和暂停
-swift
-```
-func togglePlayPause() {
-    if player.var_isPlaying {
-        player.ht_pause()
-    } else {
-        player.ht_play()
-    }
-}
-```
-
-#### 切换全屏模式
-swift
-```
-func toggleFullscreen() {
-    player.ht_fullScreen()
-}
-```
-
-#### 切换控制按钮状态
-swift
-```
-let subtitleModel = HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image("无字幕").ht_selectImage("开字幕"),
-```
-
-```
-if haveSubtitle {
-    subtitleModel.ht_image("有字幕")
-} else {
-    subtitleModel.ht_image("无字幕")
-}
-```
-
-```
-if openSubtitle {
-    subtitleModel.ht_setSelected(true)
-} else {
-    subtitleModel.ht_setSelected(false)
-}
-```
-
-### 控制器布局
-swift
-```
 func resetControlLayout(isFullscreen: Bool) {
     if isLock {
         // 锁屏模式
@@ -188,5 +142,47 @@ func resetControlLayout(isFullscreen: Bool) {
         ])
         player.var_centerControl.ht_reloadData([])
     }
+}
+```
+
+#### 播放和暂停
+swift
+```
+func togglePlayPause() {
+    if player.var_isPlaying {
+        player.ht_pause()
+    } else {
+        player.ht_play()
+    }
+}
+```
+
+#### 切换全屏模式
+swift
+```
+func toggleFullscreen() {
+    player.ht_fullScreen()
+}
+```
+
+#### 切换控制按钮状态
+swift
+```
+let subtitleModel = HTClassPlayerControlModel().ht_type(.htEnumControlTypeCC).ht_image("无字幕").ht_selectImage("开字幕"),
+```
+
+```
+if haveSubtitle {
+    subtitleModel.ht_image("有字幕")
+} else {
+    subtitleModel.ht_image("无字幕")
+}
+```
+
+```
+if openSubtitle {
+    subtitleModel.ht_setSelected(true)
+} else {
+    subtitleModel.ht_setSelected(false)
 }
 ```
