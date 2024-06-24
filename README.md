@@ -186,3 +186,73 @@ if openSubtitle {
     subtitleModel.ht_setSelected(false)
 }
 ```
+
+#### 计算卡顿
+swift
+```
+func ht_playerControl(var_playerControl: HTClassPlayerControl, var_playerStateDidChange var_state: HTEnumPlayerState) {
+ 
+    if var_state == .htEnumPlayerStateBuffering && player.var_currentTime != 0 && !player.var_isSeeking {
+        // 卡顿计数 排除首次加载和seek
+        print("-----> 卡顿一次")
+    }
+}
+```
+
+#### 按钮事件
+```
+func ht_playerControl(var_playerControl: HTClassPlayerControl, var_didClickWith var_model: HTClassPlayerControlModel) {
+    
+    print("-----> \(var_model.var_type)")
+    if var_model.var_type == .htEnumControlTypePlayPause || var_model.var_type == .htEnumControlTypeFullScreenPlayPause {
+        // 播放暂停
+        if player.var_isPlaying {
+            player.ht_pause()
+        } else {
+            player.ht_play()
+        }
+    }
+    if var_model.var_type == .htEnumControlTypeBack {
+        // 返回
+        if player.var_isFullScreen {
+            player.ht_fullScreen()
+        } else {
+            // back
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    if var_model.var_type == .htEnumControlTypeFullscreen {
+        // 全屏
+        player.ht_fullScreen()
+    }
+    if var_model.var_type == .htEnumControlTypeLock {
+        // 锁
+        if var_model.var_isSelected {
+            // 解锁
+            var_isLock = false
+        } else {
+            var_isLock = true
+        }
+        ht_resetControl(true)
+        ht_setUpdateOrientations()
+    }
+    if var_model.var_type == .htEnumControlTypeNextEpisode {
+        // 下一集
+        if let var_videoURL = URL(string: url) {
+            player.ht_playVideo(var_videoURL)
+        }
+    }
+    if var_model.var_type == .htEnumControlTypeBackward {
+        // 后退10s
+        player.ht_seekToTime(player.var_player.var_currentTime - 10)
+    }
+    if var_model.var_type == .htEnumControlTypeForward {
+        // 前进10s
+        player.ht_seekToTime(player.var_player.var_currentTime + 10)
+    }
+    if var_model.var_type == .htEnumControlTypeCC {
+        
+        ht_subtitleStatus(enable: true, selected: !var_model.var_isSelected)
+    }
+}
+```
