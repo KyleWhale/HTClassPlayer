@@ -11,6 +11,9 @@
 - `HTClassPlayerControl.var_centerControl` 中间控制层，用于 横屏时显示调整进度和播放暂停
 - `HTClassPlayerControl.var_bottomControl` 和其余不同的是，它使用了一个二维数组进行布局，区分竖屏和横屏时的布局样式 包括播放暂停、进度、下一集等
 
+![竖屏布局](images/portrait.png)
+![横屏布局](images/landscape.png)
+
 ## `HTClassPlayerControlDelegate`（可选实现）
 ```
 @objc public protocol HTClassPlayerControlDelegate: NSObjectProtocol {
@@ -59,7 +62,6 @@ if let videoURL = URL(string: "https://highlight-video.cdn.bcebos.com/video/6s/1
 
 ### 布局播放器视图
 
-根据屏幕方向设置播放器布局：
 swift
 ```
 let isFullScreen = UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height
@@ -137,13 +139,13 @@ func resetControlLayout(isFullscreen: Bool) {
         player.var_topControl.ht_reloadData([
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeBack).ht_image("返回"),
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeTitle).ht_title("标题"),
-            HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
+            HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer), // 定义为空白区域，自适应宽度，加入它才能让下方按钮靠右显示
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeCast).ht_image("投屏"),
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeShare).ht_image("分享"),
-            subtitleModel,
+            subtitleModel, //字幕按钮、保存下来使用
             HTClassPlayerControlModel().ht_type(.htEnumControlTypeCollection).ht_image("收藏")
         ])
-        // 二维数组，用于缺分横竖屏不同的UI样式
+        // 二维数组，用于区分横竖屏不同的UI样式
         player.var_bottomControl.ht_reloadData([
             [
                 HTClassPlayerControlModel().ht_type(.htEnumControlTypeProgress)

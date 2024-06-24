@@ -571,10 +571,6 @@ public class HTClassPlayerControl: UIView {
     open func ht_reduceVolume(_ var_step: Float = 0.1) {
         self.var_volumeSlider?.value -= var_step
     }    
-    // 释放
-    deinit {
-        print("播放控制层释放了")
-    }
 }
 
 extension HTClassPlayerControl: HTClassPlayerLayerViewDelegate {

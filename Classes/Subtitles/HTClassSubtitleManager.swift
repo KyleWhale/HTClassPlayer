@@ -67,7 +67,6 @@ public class HTClassSubtitleManager {
                 var_completion?([])
             }
         } catch {
-            print("error -----> \(error)")
             var_completion?([])
         }
     }

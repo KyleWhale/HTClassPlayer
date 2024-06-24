@@ -93,7 +93,7 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypePlayPause).ht_image(ht_image(180)).ht_selectImage(ht_image(181)).ht_setSelected(player.var_isPlaying),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeNextEpisode).ht_image(ht_image(179)),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeSpacer),
-                    HTClassPlayerControlModel().ht_type(.htEnumControlTypeSubtitle).ht_customView(CustomView()).ht_size(CGSize(width: 120, height: 22)).ht_title("abcdefghijklmn"),
+                    HTClassPlayerControlModel().ht_type(.htEnumControlTypeSubtitle).ht_customView(CustomView()).ht_size(CGSize(width: 120, height: 22)).ht_title("自定义按钮"),
                     HTClassPlayerControlModel().ht_type(.htEnumControlTypeEpisodes).ht_title("Episode"),
                 ]
             ])

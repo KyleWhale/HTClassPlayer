@@ -353,7 +353,6 @@ public class HTClassPlayerLayerView: UIView {
     deinit {
         ht_playerRemoveObserver(ht_AsciiString("rate"))
         NotificationCenter.default.removeObserver(self)
-        print("播放器释放了")
     }
 }
 
