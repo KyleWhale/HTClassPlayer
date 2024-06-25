@@ -19,7 +19,7 @@ open class HTClassControlView: UIView {
             ht_update()
         }
     }
-    // 只支持 var_model 赋值
+    // 只支持 var_model ht_title() 赋值
     public lazy var var_titleLabel: UILabel = {
         let var_view = UILabel()
         var_view.isHidden = true
@@ -27,7 +27,7 @@ open class HTClassControlView: UIView {
         var_view.font = .systemFont(ofSize: 14, weight: .regular)
         return var_view
     }()
-    // 只支持 var_model 赋值
+    // 只支持 var_model ht_image() 赋值
     public lazy var var_imageView: UIImageView = {
         let var_view = UIImageView()
         var_view.isHidden = true

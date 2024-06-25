@@ -36,25 +36,32 @@ class VideoPlayerController: UIViewController, UIGestureRecognizerDelegate {
         player.var_delegate = self
         player.var_isAutoLoop = true
         view.addSubview(player)
-        let var_isFullScreen = UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height
-        if var_isFullScreen {
+        ht_setupPlayer(UIScreen.main.bounds.size.width > UIScreen.main.bounds.size.height)
+        if let var_videoURL = URL(string: url) {
+            player.ht_playVideo(var_videoURL)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            // 模拟字幕下载成功
+            guard let self = self else {return}
+            ht_subtitleStatus(enable: true, selected: false)
+        }
+    }
+    
+    func ht_setupPlayer(_ var_isLandscape: Bool) {
+        
+        if var_isLandscape {
             ht_resetControl(true)
-            self.player.snp.makeConstraints { make in
+            self.player.snp.remakeConstraints { make in
                 make.edges.equalToSuperview()
             }
         } else {
             ht_resetControl(false)
-            self.player.snp.makeConstraints { make in
+            self.player.snp.remakeConstraints { make in
                 make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                 make.left.right.equalToSuperview()
                 make.height.equalTo(self.view.snp.width).multipliedBy(9.0 / 16.0)
             }
         }
-        if let var_videoURL = URL(string: url) {
-            player.ht_playVideo(var_videoURL)
-        }
-        
-        ht_subtitleStatus(enable: true, selected: false)
     }
     
     // 模拟修改字幕状态
@@ -163,19 +170,7 @@ extension VideoPlayerController {
     override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransition(to: size, with: coordinator)
-        if size.width > size.height {
-            ht_resetControl(true)
-            self.player.snp.remakeConstraints { make in
-                make.edges.equalToSuperview()
-            }
-        } else {
-            ht_resetControl(false)
-            self.player.snp.remakeConstraints { make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-                make.left.right.equalToSuperview()
-                make.height.equalTo(self.view.snp.width).multipliedBy(9.0 / 16.0)
-            }
-        }
+        ht_setupPlayer(size.width > size.height)
     }
 }
 
@@ -251,7 +246,7 @@ extension VideoPlayerController: HTClassPlayerControlDelegate {
             player.ht_seekToTime(player.var_player.var_currentTime + 10)
         }
         if var_model.var_type == .htEnumControlTypeCC {
-            
+            // 切换选中状态
             ht_subtitleStatus(enable: true, selected: !var_model.var_isSelected)
         }
     }

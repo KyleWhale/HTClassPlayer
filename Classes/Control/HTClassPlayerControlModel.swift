@@ -37,7 +37,7 @@ public struct HTEnumControlType: Equatable {
 
 // 这里注意使用方法赋值
 @objc public class HTClassPlayerControlModel: NSObject {
-    // 标题 文本自适应宽高 如何固定大小需要ht_customView
+    // 标题 文本自适应宽高 如果固定大小需要ht_customView
     @discardableResult
     public func ht_title(_ var_string: String) -> Self {
         self.var_title = var_string
@@ -71,7 +71,7 @@ public struct HTEnumControlType: Equatable {
         self.var_type = var_type
         return self
     }
-    // 尺寸 默认22*22 设置title自使用尺寸
+    // 尺寸 默认22*22 设置title自适应尺寸
     @discardableResult
     public func ht_size(_ var_size: CGSize) -> Self {
         self.var_size = var_size
