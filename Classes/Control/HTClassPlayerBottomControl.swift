@@ -74,7 +74,7 @@ public class HTClassPlayerBottomControl: UIView {
     // 二维数组 用来上下排布 区分横竖屏显示逻辑
     public func ht_reloadData(_ var_datas: [[HTClassPlayerControlModel]]) {
         
-        ht_removeAllSubviews()
+        ht_removeAllStackSubviews()
         for var_column in var_datas {
             let var_row = UIStackView()
             var_row.axis = .horizontal
@@ -102,7 +102,7 @@ public class HTClassPlayerBottomControl: UIView {
                         self?.var_click?(var_controlModel)
                     }
                     var_row.addArrangedSubview(var_view)
-                    if var_model.var_type == .htEnumControlTypeSpacer {
+                    if var_model.var_type == .htEnumControlTypeSpacer && var_model.var_customView == nil {
                         var_view.isUserInteractionEnabled = false
                         var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                         var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -131,6 +131,9 @@ public class HTClassPlayerBottomControl: UIView {
     
     func ht_subviewWith(_ var_type: HTEnumControlType) -> UIView? {
         
+        if var_type == .htEnumControlTypeSpacer {
+            return nil
+        }
         for var_subview in var_subviews {
             if var_type == .htEnumControlTypeProgresss, var_subview is HTClassPlayerProgressView {
                 return var_subview
@@ -142,7 +145,7 @@ public class HTClassPlayerBottomControl: UIView {
         return nil
     }
     
-    func ht_removeAllSubviews() {
+    func ht_removeAllStackSubviews() {
         for var_view in var_stackView.arrangedSubviews {
             if let var_row = var_view as? UIStackView {
                 for var_subview in var_row.arrangedSubviews {

@@ -15,8 +15,10 @@ public struct HTEnumControlType: Equatable {
     public init(_ var_rawValue: Int) {
         self.var_rawValue = var_rawValue
     }
-    
-    public static let htEnumControlTypeSpacer = HTEnumControlType(1) //空间隔 自动拉伸 如果想加入固定间距 可以扩展新类型，设置ht_customeView(HTClassCustomView()).ht_size(CGSize(width:22, height22))
+    // 除htEnumControlTypeSpacer外 不允许使用多个相同的类型进行布局，无法确定点击
+    // htEnumControlTypeSpacer的布局为自适应拉伸，使用多个时，无法确定拉伸的优先级
+    // 如果想加入固定间距 可以加入自定义view，设置ht_customeView(HTClassCustomView()).ht_size(CGSize(width:22, height22))
+    public static let htEnumControlTypeSpacer = HTEnumControlType(1) //空间隔 自动拉伸
     public static let htEnumControlTypeBack = HTEnumControlType(2) //返回按钮
     public static let htEnumControlTypeTitle = HTEnumControlType(3) //标题
     public static let htEnumControlTypeCast = HTEnumControlType(4) //投屏

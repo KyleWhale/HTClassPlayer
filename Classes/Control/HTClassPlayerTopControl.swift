@@ -77,14 +77,14 @@ public class HTClassPlayerTopControl: UIView {
     
     public func ht_reloadData(_ var_datas: [HTClassPlayerControlModel]) {
         
-        ht_removeAllSubviews()
+        ht_removeAllStackSubviews()
         for var_model in var_datas {
             let var_view = ht_subviewWith(var_model.var_type) as? HTClassControlView ?? (var_model.var_customView ?? HTClassControlView())
             var_view.var_click = { [weak self] var_controlModel in
                 self?.var_click?(var_controlModel)
             }
             var_stackView.addArrangedSubview(var_view)
-            if var_model.var_type == .htEnumControlTypeSpacer || var_model.var_type == .htEnumControlTypeProgresss {
+            if var_model.var_type == .htEnumControlTypeSpacer && var_model.var_customView == nil {
                 var_view.isUserInteractionEnabled = false
                 var_view.setContentHuggingPriority(.defaultLow, for: .horizontal)
                 var_view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -105,16 +105,18 @@ public class HTClassPlayerTopControl: UIView {
             }
             if !var_subviews.contains(var_view) {
                 var_subviews.append(var_view)
+            } else {
+                print("----> contain \(var_model)")
             }
         }
     }
 
     func ht_subviewWith(_ var_type: HTEnumControlType) -> UIView? {
         
+        if var_type == .htEnumControlTypeSpacer {
+            return nil
+        }
         for var_subview in var_subviews {
-            if var_type == .htEnumControlTypeProgresss, var_subview is HTClassPlayerProgressView {
-                return var_subview
-            }
             if let var_view = var_subview as? HTClassControlView, var_view.var_model?.var_type == var_type {
                 return var_view
             }
@@ -122,7 +124,7 @@ public class HTClassPlayerTopControl: UIView {
         return nil
     }
 
-    func ht_removeAllSubviews() {
+    func ht_removeAllStackSubviews() {
         for var_view in var_stackView.arrangedSubviews {
             var_stackView.removeArrangedSubview(var_view)
             var_view.removeFromSuperview()

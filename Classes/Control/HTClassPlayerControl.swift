@@ -392,6 +392,9 @@ public class HTClassPlayerControl: UIView {
     // 通过枚举获取view
     func ht_subviewWith(_ var_type: HTEnumControlType) -> UIView? {
         
+        if var_type == .htEnumControlTypeSpacer {
+            return nil
+        }
         for var_view in self.var_bottomControl.var_subviews {
             if let var_view = var_view as? HTClassControlView, var_view.var_model?.var_type == var_type {
                 return var_view
