@@ -105,8 +105,6 @@ public class HTClassPlayerTopControl: UIView {
             }
             if !var_subviews.contains(var_view) {
                 var_subviews.append(var_view)
-            } else {
-                print("----> contain \(var_model)")
             }
         }
     }
