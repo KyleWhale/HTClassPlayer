@@ -207,8 +207,8 @@ public class HTClassPlayerLayerView: UIView {
             self.var_player!.seek(to: draggedTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { [weak self] (finished) in
                 if finished {
                     self?.var_isSeeking = false
-                    var_completion?()
                 }
+                var_completion?()
             })
         } else {
             if var_time != 0 {

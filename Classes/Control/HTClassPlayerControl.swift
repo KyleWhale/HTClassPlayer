@@ -304,24 +304,29 @@ public class HTClassPlayerControl: UIView {
     }
     // 重置播放状态
     public func ht_resetPlayer() {
+        var_sliding = false
         var_player.ht_resetPlayer()
     }
     // 开始播放｜替换URL
     public func ht_playVideo(_ var_url: URL) {
         ht_showLoading()
+        var_sliding = false
         var_player.ht_playVideo(var_url)
     }
     // 播放
     public func ht_play() {
+        var_sliding = false
         var_player.ht_play()
     }
     // 暂停
     public func ht_pause() {
+        var_sliding = false
         var_player.ht_pause()
     }
     // 停止
     public func ht_stop() {
         ht_hiddenLoading()
+        var_sliding = false
         var_player.ht_stop()
     }
     // 显示菊花
